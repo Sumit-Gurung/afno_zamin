@@ -84,7 +84,7 @@ class _ScoreHomeState extends State<ScoreHome> {
             child: Text("Score is",
                 style: TextStyle(
                     color: Colors.green,
-                    fontSize: 25,
+                    fontSize: 27,
                     fontWeight: FontWeight.bold)),
           ),
           Center(
