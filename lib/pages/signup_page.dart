@@ -1,14 +1,14 @@
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   String name = "";
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 215,
             ),
             Text(
-              "welcome $name",
+              "Join Us",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
             ),
             SizedBox(height: 25),
@@ -35,10 +35,6 @@ class _LoginPageState extends State<LoginPage> {
                       hintText: "Enter Username",
                       labelText: "Username",
                     ),
-                    onChanged: (value) {
-                      name = value;
-                      setState(() {});
-                    },
                   ),
                   TextFormField(
                     obscureText: true,
@@ -47,24 +43,43 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: "Password",
                     ),
                   ),
+                  TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "Confirm Password",
+                      labelText: "Confirm Password",
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Enter PhoneNumber",
+                      labelText: "PhoneNumber",
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Enter Email",
+                      labelText: "EmailAddress",
+                    ),
+                  ),
                   SizedBox(height: 35),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, MyRoutes.homeRoute);
                     },
                     style: TextButton.styleFrom(minimumSize: Size(100, 40)),
-                    child: Text("Login"),
+                    child: Text("SignUp"),
                   ),
                   SizedBox(height: 35),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, MyRoutes.signupRoute);
+                      Navigator.pushNamed(context, MyRoutes.loginRoute);
                     },
                     child: Center(
                       child: Container(
                         // // height: 40,
                         // width: 60,
-                        child: Text("SIGN UP",
+                        child: Text("Log IN",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
 
