@@ -1,8 +1,3 @@
-// import 'dart:async';
-// import 'dart:math';
-
-// ignore_for_file: prefer_const_constructors;
-
 import 'package:afnozamin/pages/signup_page.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
