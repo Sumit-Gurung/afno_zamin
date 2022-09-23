@@ -27,6 +27,8 @@ linter:
     prefer_const_constructors: false
     non_constant_identifier_names: false
     sort_child_properties_last: false
+    file_names: false
+    unused_import: false
     
 
 
