@@ -3,44 +3,7 @@ import 'package:flutter/material.dart';
 
 class RecentProducts extends StatelessWidget {
   //creating product list
-  final productList = [
-    {
-      'name': 'Fulbari house',
-      'image': 'assets/images/test.png',
-      'price': 'Rs.1000000',
-      'disc': 'Strong and Solid'
-    },
-    {
-      'name': 'Fulbari house',
-      'image': 'assets/images/test.png',
-      'price': 'Rs.1000000',
-      'disc': 'Strong and Solid'
-    },
-    {
-      'name': 'Fulbari house',
-      'image': 'assets/images/c.jpg',
-      'price': 'Rs.1000000',
-      'disc': 'Strong and Solid'
-    },
-    {
-      'name': 'Fulbari house',
-      'image': 'assets/images/c.jpg',
-      'price': 'Rs.1000000',
-      'disc': 'Strong and Solid'
-    },
-    {
-      'name': 'Fulbari house',
-      'image': 'assets/images/c.jpg',
-      'price': 'Rs.1000000',
-      'disc': 'Strong and Solid'
-    },
-    {
-      'name': 'Fulbari house',
-      'image': 'assets/images/c.jpg',
-      'price': 'Rs.1000000',
-      'disc': 'Strong and Solid'
-    },
-  ];
+
   @override
   Widget build(BuildContext context) {
     //creating grid to show columns of items

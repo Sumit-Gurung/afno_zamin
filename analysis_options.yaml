@@ -29,6 +29,8 @@ linter:
     sort_child_properties_last: false
     file_names: false
     unused_import: false
+    prefer_const_literals_to_create_immutables: false
+    prefer_const_declarations: false
     
 
 
