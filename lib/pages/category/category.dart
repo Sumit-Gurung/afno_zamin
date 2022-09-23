@@ -11,22 +11,35 @@ class _CategoryState extends State<Category> {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      child: Column(
+      child: ListView(
+        scrollDirection: Axis.horizontal,
         children: [
           CategoryProduct(
-              image: 'assets/images/e.png', text: 'Land', press: () {}),
+            press: () {},
+            //image location
+            image: 'assets/images/house.png',
+            text: 'House',
+          ),
           SizedBox(
-            width: 20,
+            width: 11,
           ),
           CategoryProduct(
-              image: 'assets/images/e.png', text: 'House', press: () {}),
+            press: () {},
+            //image location
+            image: 'assets/images/land.png',
+            text: 'land',
+          ),
           SizedBox(
-            width: 20,
+            width: 11,
           ),
           CategoryProduct(
-              image: 'assets/images/e.png', text: 'Commerial', press: () {}),
+            press: () {},
+            //image location
+            image: 'assets/images/commercial.png',
+            text: 'Commercial',
+          ),
           SizedBox(
-            width: 20,
+            width: 11,
           ),
         ],
       ),
@@ -52,17 +65,16 @@ class CategoryProduct extends StatelessWidget {
         onTap: press,
         child: Container(
           child: Chip(
-            backgroundColor: primarycolor,
             label: Row(
               children: [
                 Image.asset(
                   image,
                   height: 40,
                 ),
-                SizedBox(
-                  width: 20,
-                ),
                 Text(text),
+                SizedBox(
+                  width: 0,
+                ),
               ],
             ),
           ),

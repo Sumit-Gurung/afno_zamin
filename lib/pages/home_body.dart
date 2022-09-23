@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:afnozamin/pages/category/category.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/products/recent_products.dart';
@@ -28,6 +30,7 @@ class _homebodyState extends State<homebody> {
               CustomAppBar(),
               //create column and row inside it
               //space between bar and  search
+              // ignore: prefer_const_constructors
               SizedBox(
                 height: 20,
               ),
@@ -47,7 +50,7 @@ class _homebodyState extends State<homebody> {
               SizedBox(
                 height: 20,
               ),
-              // RecentProducts(),
+              Container(height: 300, child: RecentProducts()),
             ],
           ),
         ),
