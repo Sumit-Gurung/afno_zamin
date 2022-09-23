@@ -20,7 +20,7 @@ class _ProductSliderState extends State<ProductSlider> {
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: 200,
+          height: 170,
           child: CarouselSlider(
             items: imgList
                 .map((item) => Container(

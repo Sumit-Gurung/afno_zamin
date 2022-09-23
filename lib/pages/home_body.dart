@@ -32,25 +32,25 @@ class _homebodyState extends State<homebody> {
               //space between bar and  search
               // ignore: prefer_const_constructors
               SizedBox(
-                height: 20,
+                height: 4,
               ),
               SearchBar(),
               SizedBox(
-                height: 20,
+                height: 5,
               ),
               //to create slider
               //we create asset foler and import the required images
               // giving image folder path in pubspec
               ProductSlider(),
               //defininig size for categories
-              SizedBox(
-                height: 20,
-              ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               Category(),
-              SizedBox(
-                height: 20,
-              ),
-              Container(height: 300, child: RecentProducts()),
+              // SizedBox(
+              //   height: 20,
+              // ),
+              Container(height: 272, child: RecentProducts()),
             ],
           ),
         ),
