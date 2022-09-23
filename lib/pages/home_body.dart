@@ -25,7 +25,7 @@ class _homebodyState extends State<homebody> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: ListView(
             children: [
               CustomAppBar(),
               //create column and row inside it
