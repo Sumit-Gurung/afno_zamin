@@ -2,7 +2,9 @@
 
 import 'package:afnozamin/pages/category/category.dart';
 import 'package:afnozamin/pages/constants.dart';
+import 'package:afnozamin/pages/login_page.dart';
 import 'package:afnozamin/pages/products/recent_products.dart';
+import 'package:afnozamin/pages/signup_page.dart';
 import 'package:afnozamin/pages/slider/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -55,7 +57,33 @@ class _homebodyState extends State<homebody> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: primarycolor,
+              ),
+              child: Text('Afno-Zamin'),
+            ),
+            ListTile(
+                title: const Text('Login-IN'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                }),
+            ListTile(
+              title: const Text('Sign-Up'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignupPage()));
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
