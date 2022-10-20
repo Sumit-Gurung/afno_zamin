@@ -1,8 +1,9 @@
+import 'package:afnozamin/pages/main_pages/user_profile.dart';
+import 'package:flutter/material.dart';
 import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/signup_page.dart';
 import 'package:afnozamin/utils/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/login_page.dart';
 import 'pages/Home_screen.dart';
@@ -33,6 +34,7 @@ class ScoreApp extends StatelessWidget {
         MyRoutes.loginRoute: (context) => LoginPage(),
         MyRoutes.homeRoute: (context) => HomeScreen(),
         MyRoutes.signupRoute: (context) => SignupPage(),
+
       },
       initialRoute: MyRoutes.loginRoute,
       // home: HomeScreen(),

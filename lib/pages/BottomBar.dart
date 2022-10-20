@@ -2,7 +2,7 @@ import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
 import 'package:afnozamin/pages/main_pages/add_property.dart';
 import 'package:afnozamin/pages/main_pages/fav_page.dart';
-import 'package:afnozamin/pages/main_pages/search_page.dart';
+//import 'package:afnozamin/pages/main_pages/search_page.dart';
 import 'package:afnozamin/pages/main_pages/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,16 +51,26 @@ class BottomNavBar extends StatelessWidget {
               },
             ),
             IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchScreen()));
-              },
-              icon: SvgPicture.asset(
-                'assets/images/icons/search.svg',
-                color: MenuState.search == selectedMenu
-                    ? primarycolor
-                    : inactiveColor,
-              ),
+              // onPressed: () {
+              //     Navigator.push(context,
+              //        MaterialPageRoute(builder: (context) => SearchScreen()));
+              // },
+              
+              // icon: SvgPicture.asset(
+              //   'assets/images/icons/search.svg',
+                
+              //   color: MenuState.search == selectedMenu
+              //       ? primarycolor
+              //       : inactiveColor,
+              // ),
+              icon: Icon(Icons.image_search_outlined,
+              color: MenuState.search == selectedMenu
+                   ? primarycolor
+                     : inactiveColor,
+                     size: 35, ),
+                     onPressed:(){
+                      showSearch(context: context, delegate: DataSearch());
+                     },
             ),
             IconButton(
               onPressed: () {
@@ -89,7 +99,7 @@ class BottomNavBar extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UserScreen()));
+                    MaterialPageRoute(builder: (context) => UserProfile()));
               },
               icon: SvgPicture.asset(
                 'assets/images/icons/user.svg',
@@ -103,4 +113,62 @@ class BottomNavBar extends StatelessWidget {
       ),
     );
   }
+}
+class DataSearch extends SearchDelegate<String>{
+  final Prop = ['fubari','lamachaur','bagar','mahendrapool','ranibari','lazim'];
+  final RecentProp = ['fubari','lamachaur','bagar'];
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    // action for app bar
+    return [IconButton(onPressed: (){
+      query= "";
+    },
+     icon: Icon(Icons.clear))
+     
+     ];
+
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    // leading icons
+    return IconButton( 
+    icon: AnimatedIcon(icon:AnimatedIcons.menu_arrow,
+    progress: transitionAnimation,),
+    onPressed: ()=>Navigator.pop(context),
+    
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // show result best on selections
+  
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // show suggestions
+    final suggestionList= query.isEmpty?RecentProp:Prop.where((p) => 
+    p.startsWith(query)).toList();
+
+    return ListView.builder(
+      itemBuilder:(context, index) => ListTile(
+      leading:Icon(Icons.location_city),
+      title:  RichText(text: TextSpan(
+        text: suggestionList[index].substring(0,query.length),
+        style: TextStyle(color: Colors.greenAccent,
+        fontWeight: FontWeight.bold),
+        children:[ TextSpan(
+          text: suggestionList[index].substring(query.length),
+          style: TextStyle(color: Colors.grey)
+        )]
+
+      ))//Text(suggestionList[index]),
+    ),
+      itemCount:suggestionList.length
+    );
+  }
+
 }

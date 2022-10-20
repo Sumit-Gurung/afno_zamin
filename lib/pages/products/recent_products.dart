@@ -46,11 +46,15 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
   final Color inactiveColor = Colors.black38;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView( 
+      
+      child: Column(
+       
       children: [
+        
         Container(
-          height: 180,
-          width: 160,
+          height: 200,
+          width: 152,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: primarycolor,
@@ -80,6 +84,6 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
               ),
             ))
       ],
-    );
+    ));
   }
 }
