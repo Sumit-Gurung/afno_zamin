@@ -41,6 +41,7 @@ class RecentProducts extends StatelessWidget {
       'disc': 'Strong and Solid'
     },
   ];
+  
   @override
   Widget build(BuildContext context) {
     //creating grid to show columns of items

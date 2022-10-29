@@ -1,15 +1,9 @@
-// import 'dart:async';
-// import 'dart:math';
-
-// ignore_for_file: prefer_const_constructors;
-
 import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/signup_page.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 import 'pages/Home_screen.dart';
 
