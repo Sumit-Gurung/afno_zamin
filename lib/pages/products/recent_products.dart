@@ -3,7 +3,45 @@ import 'package:flutter/material.dart';
 
 class RecentProducts extends StatelessWidget {
   //creating product list
-
+  final productList = [
+    {
+      'name': 'Fulbari house',
+      'image': 'assets/images/house1.jpg',
+      'price': 'Rs.1000000',
+      'disc': 'Strong and Solid'
+    },
+    {
+      'name': 'Malepatan house',
+      'image': 'assets/images/house2.jpg',
+      'price': 'Rs.9000000',
+      'disc': 'Strong and Solid'
+    },
+    {
+      'name': 'Srijana chowk house',
+      'image': 'assets/images/house3.jpg',
+      'price': 'Rs.8000000',
+      'disc': 'Strong and Solid'
+    },
+    {
+      'name': 'Bagar house',
+      'image': 'assets/images/house4.jpg',
+      'price': 'Rs.7000000',
+      'disc': 'Strong and Solid'
+    },
+    {
+      'name': 'Lamachour house',
+      'image': 'assets/images/house5.jpg',
+      'price': 'Rs.6000000',
+      'disc': 'Strong and Solid'
+    },
+    {
+      'name': 'Rastrabank chowk house',
+      'image': 'assets/images/house6.jpg',
+      'price': 'Rs.5000000',
+      'disc': 'Strong and Solid'
+    },
+  ];
+  
   @override
   Widget build(BuildContext context) {
     //creating grid to show columns of items
@@ -11,7 +49,7 @@ class RecentProducts extends StatelessWidget {
     return GridView.builder(
         itemCount: productList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.70),
+            crossAxisCount: 2, childAspectRatio: 0.7),
         itemBuilder: (BuildContext context, int index) {
           //assign values to variables
           return RecentSingleProducts(
@@ -49,8 +87,8 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
     return Column(
       children: [
         Container(
-          height: 180,
-          width: 160,
+          height: 170,
+          width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: primarycolor,
