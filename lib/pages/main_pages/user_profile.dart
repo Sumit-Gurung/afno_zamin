@@ -1,4 +1,5 @@
 import 'package:afnozamin/pages/ename.dart';
+import 'package:afnozamin/pages/product/product_page.dart';
 import 'package:flutter/material.dart';
 
 import '../BottomBar.dart';
@@ -38,7 +39,8 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "My Property",
             icon: "assets/images/property.png",
-            press: () => {},
+            press: () => ProductPage(),
+            
           ),
           ProfileMenu(
             text: "Notifications",
