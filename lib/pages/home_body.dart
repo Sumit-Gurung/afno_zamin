@@ -71,7 +71,7 @@ class _homebodyState extends State<homebody> {
                 currentAccountPicture: CircleAvatar(
                   child: ClipOval(
                     child: Image.asset(
-                      'assets/images/Afno.png',
+                      'assets/images/Afnoz.png',
                       width: 90,
                       height: 90,
                       fit: BoxFit.cover,
