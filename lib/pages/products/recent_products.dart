@@ -41,7 +41,7 @@ class RecentProducts extends StatelessWidget {
       'disc': 'Strong and Solid'
     },
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     //creating grid to show columns of items
@@ -84,14 +84,11 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
   final Color inactiveColor = Colors.black38;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView( 
-      
-      child: Column(
-       
+    return Column(
       children: [
-        
         Container(
-
+          height: 170,
+          width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: primarycolor,
@@ -121,6 +118,6 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
               ),
             ))
       ],
-    ));
+    );
   }
 }
