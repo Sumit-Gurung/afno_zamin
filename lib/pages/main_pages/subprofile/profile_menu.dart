@@ -19,7 +19,7 @@ class ProfileMenu extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.green ,
+          primary: Colors.green,
           padding: EdgeInsets.all(20),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -33,8 +33,6 @@ class ProfileMenu extends StatelessWidget {
               color: Color(0xFF22764f),
               width: 22,
             ),
-            
-            
             SizedBox(width: 20),
             Expanded(child: Text(text)),
             Icon(Icons.arrow_forward_ios),
@@ -42,5 +40,5 @@ class ProfileMenu extends StatelessWidget {
         ),
       ),
     );
-  } 
+  }
 }
