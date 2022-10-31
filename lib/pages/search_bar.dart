@@ -1,5 +1,9 @@
+import 'package:afnozamin/pages/main_pages/property_list.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:afnozamin/pages/constants.dart';
+import 'package:afnozamin/pages/ename.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -52,7 +56,13 @@ class SearchBar extends StatelessWidget {
                       BoxShadow(color: Colors.black38, blurRadius: 4)
                     ]),
                 child: IconButton(
-                    onPressed: () {}, icon: Icon(Icons.sort_by_alpha)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PropScreen()));
+                    },
+                    icon: Icon(Icons.sort)),
               )
             ],
           )

@@ -87,14 +87,15 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
     return Column(
       children: [
         Container(
-          height: 170,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: primarycolor,
-          ),
-          child: Image.asset(widget.recent_single_product_image),
-        ),
+            height: 170,
+            width: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(widget.recent_single_product_image),
+              ),
+            )),
         ListTile(
             title: Text(widget.recent_single_product_name),
             subtitle: Text(widget.recent_single_product_price),
