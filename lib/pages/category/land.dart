@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 import '../BottomBar.dart';
 
-class PropScreen extends StatefulWidget {
+class LandScreen extends StatefulWidget {
   @override
-  State<PropScreen> createState() => _PropScreenState();
+  State<LandScreen> createState() => _LandScreenState();
 }
 
-class _PropScreenState extends State<PropScreen> {
+class _LandScreenState extends State<LandScreen> {
   String dropdownvalue = 'Sort By';
 
   // List of items in our dropdown menu
@@ -26,7 +26,7 @@ class _PropScreenState extends State<PropScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Properties list'),
+          title: Text('Land list'),
         ),
         body: Column(children: [
           Container(

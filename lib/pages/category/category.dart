@@ -1,3 +1,7 @@
+import 'package:afnozamin/pages/Home_screen.dart';
+import 'package:afnozamin/pages/category/commercial.dart';
+import 'package:afnozamin/pages/category/house.dart';
+import 'package:afnozamin/pages/category/land.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +19,10 @@ class _CategoryState extends State<Category> {
         scrollDirection: Axis.horizontal,
         children: [
           CategoryProduct(
-            press: () {},
+            press: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HouseScreen()));
+            },
             //image location
             image: 'assets/images/house.png',
             text: 'House',
@@ -24,7 +31,10 @@ class _CategoryState extends State<Category> {
             width: 11,
           ),
           CategoryProduct(
-            press: () {},
+            press: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LandScreen()));
+            },
             //image location
             image: 'assets/images/land.png',
             text: 'land',
@@ -33,7 +43,10 @@ class _CategoryState extends State<Category> {
             width: 11,
           ),
           CategoryProduct(
-            press: () {},
+            press: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CommercialScreen()));
+            },
             //image location
             image: 'assets/images/commercial.png',
             text: 'Commercial',

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 import '../BottomBar.dart';
 
-class PropScreen extends StatefulWidget {
+class CommercialScreen extends StatefulWidget {
   @override
-  State<PropScreen> createState() => _PropScreenState();
+  State<CommercialScreen> createState() => _CommercialScreenState();
 }
 
-class _PropScreenState extends State<PropScreen> {
+class _CommercialScreenState extends State<CommercialScreen> {
   String dropdownvalue = 'Sort By';
 
   // List of items in our dropdown menu
