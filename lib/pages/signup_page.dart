@@ -9,7 +9,18 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  bool _isVisible = false;
   String name = "";
+  final formkey = GlobalKey<FormState>();
+  var confirmPass;
+  // void validate() {
+  //   if (formkey.currentState.validate()) {
+  //     print("ok");
+  //   } else {
+  //     print("error");
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -26,71 +37,146 @@ class _SignupPageState extends State<SignupPage> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
             ),
             SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Enter Username",
-                      labelText: "Username",
-                    ),
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Enter Password",
-                      labelText: "Password",
-                    ),
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                      labelText: "Confirm Password",
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Enter PhoneNumber",
-                      labelText: "PhoneNumber",
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Enter Email",
-                      labelText: "EmailAddress",
-                    ),
-                  ),
-                  SizedBox(height: 35),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, MyRoutes.homeRoute);
-                    },
-                    style: TextButton.styleFrom(minimumSize: Size(100, 40)),
-                    child: Text("SignUp"),
-                  ),
-                  SizedBox(height: 35),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, MyRoutes.loginRoute);
-                    },
-                    child: Center(
-                      child: Container(
-                        // // height: 40,
-                        // width: 60,
-                        child: Text("Log IN",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15)),
-
-                        // alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(color: Colors.black))),
+            Form(
+              key: formkey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Enter Username",
+                        labelText: "Username",
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter UserName';
+                        }
+                        return null;
+                      },
                     ),
-                  )
-                ],
+                    TextFormField(
+                      obscureText: !_isVisible,
+                      // obscureText: true,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _isVisible = !_isVisible;
+                            });
+                          },
+                          icon: _isVisible
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                        ),
+                        hintText: "Enter Password",
+                        labelText: "Password",
+                      ),
+                      validator: (value) {
+                        confirmPass = value;
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Password';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      obscureText: !_isVisible,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _isVisible = !_isVisible;
+                            });
+                          },
+                          icon: _isVisible
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                        ),
+                        hintText: "Confirm Password",
+                        labelText: "Confirm Password",
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Password';
+                        } else if (value != confirmPass) {
+                          return "Password must be same as above";
+                        }
+
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Enter PhoneNumber",
+                        labelText: "PhoneNumber",
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter PhoneNumber';
+                        } else if (value.length != 10) {
+                          return "Phone Number Must be 10 digits";
+                        }
+
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Enter Email",
+                        labelText: "EmailAddress",
+                      ),
+                      // validator: (email) =>
+                      //     email != null && !EmailValidator.validate(email)
+                      //         ? 'Enter a valid Email'
+                      //         : null,
+                    ),
+                    SizedBox(height: 35),
+                    ElevatedButton(
+                        style: TextButton.styleFrom(minimumSize: Size(100, 40)),
+                        child: Text("SignUp"),
+                        onPressed: () {
+                          final isValidForm = formkey.currentState!.validate();
+                          if (isValidForm) {
+                            Navigator.pushNamed(context, MyRoutes.loginRoute);
+                          }
+                        }),
+                    SizedBox(height: 35),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, MyRoutes.loginRoute);
+                      },
+                      child: Center(
+                        child: Container(
+                          // // height: 40,
+                          // width: 60,
+                          child: Text("Log IN",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15)),
+
+                          // alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(color: Colors.black))),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],
