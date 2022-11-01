@@ -38,6 +38,8 @@ dependencies:
   google_fonts: ^3.0.1
   carousel_slider: ^4.0.0-nullsafety.0
   image_picker: ^0.8.6
+  form_field_validator: ^1.1.0
+  
 
 
 dev_dependencies:
