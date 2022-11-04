@@ -10,6 +10,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  bool _isVisible = false;
   String name = "";
    final _formKey = GlobalKey<FormState>();
    TextEditingController _nameController = TextEditingController();

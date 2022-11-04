@@ -76,6 +76,10 @@ class PropertyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: (() {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => individualpage()));
+      }),
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(

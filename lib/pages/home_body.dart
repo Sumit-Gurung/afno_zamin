@@ -4,6 +4,7 @@ import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/category/category.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/login_page.dart';
+import 'package:afnozamin/pages/main_pages/property_list.dart';
 import 'package:afnozamin/pages/main_pages/user_profile.dart';
 import 'package:afnozamin/pages/products/recent_products.dart';
 import 'package:afnozamin/pages/signup_page.dart';
@@ -94,6 +95,14 @@ class _homebodyState extends State<homebody> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => UserProfile()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.explore),
+              title: const Text('Explore Properties'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PropScreen()));
               },
             ),
             const Divider(
