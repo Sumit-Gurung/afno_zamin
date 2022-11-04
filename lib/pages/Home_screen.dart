@@ -4,7 +4,7 @@ import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
 import 'package:afnozamin/pages/home_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'BottomBar.dart';
 
 class HomeScreen extends StatefulWidget {

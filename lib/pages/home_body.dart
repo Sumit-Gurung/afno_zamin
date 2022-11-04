@@ -10,8 +10,8 @@ import 'package:afnozamin/pages/products/recent_products.dart';
 import 'package:afnozamin/pages/signup_page.dart';
 import 'package:afnozamin/pages/slider/slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/foundation/key.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'Custom_appbar.dart';
 import 'search_bar.dart';
 

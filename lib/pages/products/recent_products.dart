@@ -1,6 +1,8 @@
 import 'package:afnozamin/pages/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../individualPage.dart';
+
 class RecentProducts extends StatelessWidget {
   //creating product list
   final productList = [
@@ -86,16 +88,23 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-            height: 170,
+        GestureDetector(
+          onTap: (() {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => individualpage()));
+          }),
+          child: Container(
+            height: 140,
             width: 150,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: AssetImage(widget.recent_single_product_image),
               ),
-            )),
+            ),
+          ),
+        ),
         ListTile(
             title: Text(widget.recent_single_product_name),
             subtitle: Text(widget.recent_single_product_price),
