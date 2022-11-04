@@ -1,3 +1,5 @@
+import 'package:afnozamin/pages/notificationview.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -5,7 +7,7 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     Key? key,
   }) : super(key: key);
-
+  final int count = 0;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -37,11 +39,25 @@ class CustomAppBar extends StatelessWidget {
             ),
           ],
         ),
-        CircleAvatar(
-          backgroundColor: primarycolor,
-          backgroundImage:
-              NetworkImage("https://i.postimg.cc/3R9H3z58/Afno1.jpg"),
-        )
+        Container(
+          child: Builder(
+            builder: (context) => IconButton(
+              icon: Badge(
+                  badgeContent: Text('$count'),
+                  badgeColor: primarycolor,
+                  padding: EdgeInsets.all(3.0),
+                  position: BadgePosition.topStart(),
+                  animationType: BadgeAnimationType.slide,
+                  child: Icon(
+                    Icons.notifications,
+                  )),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Notificaionview()));
+              },
+            ),
+          ),
+        ),
       ],
     );
   }
