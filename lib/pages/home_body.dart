@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'Custom_appbar.dart';
+import 'drawer.dart';
 import 'search_bar.dart';
 
 class homebody extends StatefulWidget {
@@ -60,86 +61,7 @@ class _homebodyState extends State<homebody> {
           ),
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            Center(
-              child: UserAccountsDrawerHeader(
-                accountName: Text("Afno Zamin"),
-                accountEmail: Text("afnozamin@gmail.com"),
-                currentAccountPicture: CircleAvatar(
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/Afnoz.png',
-                      width: 90,
-                      height: 90,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              iconColor: primarycolor,
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.account_box_rounded),
-              iconColor: primarycolor,
-              title: const Text('Profile'),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UserProfile()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.explore),
-              iconColor: primarycolor,
-              title: const Text('Explore Properties'),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PropScreen()));
-              },
-            ),
-            const Divider(
-              color: primarycolor,
-            ),
-            ListTile(
-                leading: Icon(Icons.login_rounded),
-                title: const Text('Login-IN'),
-                iconColor: primarycolor,
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                }),
-            ListTile(
-              leading: Icon(Icons.laptop_chromebook_rounded),
-              title: const Text('Sign-Up'),
-              iconColor: primarycolor,
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignupPage()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: const Text('Log-Out'),
-              iconColor: primarycolor,
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignupPage()));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: drawer(),
     );
   }
 }
