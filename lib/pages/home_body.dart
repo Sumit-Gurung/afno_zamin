@@ -83,6 +83,7 @@ class _homebodyState extends State<homebody> {
             ),
             ListTile(
               leading: Icon(Icons.home),
+              iconColor: primarycolor,
               title: const Text('Home'),
               onTap: () {
                 Navigator.push(context,
@@ -91,6 +92,7 @@ class _homebodyState extends State<homebody> {
             ),
             ListTile(
               leading: Icon(Icons.account_box_rounded),
+              iconColor: primarycolor,
               title: const Text('Profile'),
               onTap: () {
                 Navigator.push(context,
@@ -99,6 +101,7 @@ class _homebodyState extends State<homebody> {
             ),
             ListTile(
               leading: Icon(Icons.explore),
+              iconColor: primarycolor,
               title: const Text('Explore Properties'),
               onTap: () {
                 Navigator.push(context,
@@ -111,6 +114,7 @@ class _homebodyState extends State<homebody> {
             ListTile(
                 leading: Icon(Icons.login_rounded),
                 title: const Text('Login-IN'),
+                iconColor: primarycolor,
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginPage()));
@@ -118,6 +122,7 @@ class _homebodyState extends State<homebody> {
             ListTile(
               leading: Icon(Icons.laptop_chromebook_rounded),
               title: const Text('Sign-Up'),
+              iconColor: primarycolor,
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SignupPage()));
@@ -126,6 +131,7 @@ class _homebodyState extends State<homebody> {
             ListTile(
               leading: Icon(Icons.logout),
               title: const Text('Log-Out'),
+              iconColor: primarycolor,
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SignupPage()));

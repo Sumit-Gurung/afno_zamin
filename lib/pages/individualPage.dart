@@ -3,6 +3,7 @@ import 'package:afnozamin/pages/ename.dart';
 // import 'package:afnozamin/pages/search_bar.dart';
 import 'package:afnozamin/pages/slider/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -28,7 +29,7 @@ class _individualpageState extends State<individualpage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          launchUrlString('tel:+9806773686');
+          canLaunchUrlString('tel:+9806773686');
         },
         child: Icon(Icons.phone),
       ),

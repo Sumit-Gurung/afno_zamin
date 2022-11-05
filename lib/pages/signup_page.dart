@@ -1,3 +1,4 @@
+import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class _SignupPageState extends State<SignupPage> {
   bool _isVisible = false;
   String name = "";
   final formkey = GlobalKey<FormState>();
+  // ignore: prefer_typing_uninitialized_variables
   var confirmPass;
   // void validate() {
   //   if (formkey.currentState.validate()) {
@@ -27,19 +29,25 @@ class _SignupPageState extends State<SignupPage> {
       color: Colors.white,
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0),
+          padding: EdgeInsets.symmetric(vertical: 18.0),
           child: Column(
             children: [
-              Image.asset(
-                "assets/images/Afno.png",
-                fit: BoxFit.cover,
-                height: 215,
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 60, 20, 20),
+                child: Image.asset(
+                  "assets/images/Afnoz.png",
+                  fit: BoxFit.cover,
+                  height: 150,
+                ),
               ),
               Text(
-                "Joinnnnn Us",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                "Join Us",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36,
+                    color: primarycolor),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 10),
               Form(
                 key: formkey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -148,11 +156,14 @@ class _SignupPageState extends State<SignupPage> {
                         //         ? 'Enter a valid Email'
                         //         : null,
                       ),
-                      SizedBox(height: 35),
+                      SizedBox(height: 25),
                       ElevatedButton(
                           style:
-                              TextButton.styleFrom(minimumSize: Size(100, 40)),
-                          child: Text("SignUp"),
+                              TextButton.styleFrom(minimumSize: Size(110, 40)),
+                          child: Text(
+                            "SignUp",
+                            style: TextStyle(fontSize: 16),
+                          ),
                           onPressed: () {
                             final isValidForm =
                                 formkey.currentState!.validate();
@@ -161,25 +172,36 @@ class _SignupPageState extends State<SignupPage> {
                             }
                           }),
                       SizedBox(height: 35),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, MyRoutes.loginRoute);
-                        },
-                        child: Center(
-                          child: Container(
-                            // // height: 40,
-                            // width: 60,
-                            child: Text("Log IN",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15)),
-
-                            // alignment: Alignment.center,
+                      Center(
+                          child: Row(
+                        children: [
+                          Text(
+                            'Already have an account? ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                          Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                    bottom: BorderSide(color: Colors.black))),
+                                    bottom: BorderSide(color: primarycolor))),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, MyRoutes.loginRoute);
+                              },
+                              child: Text("Log IN",
+                                  style: TextStyle(
+                                      color: primarycolor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                            ),
                           ),
-                        ),
-                      )
+
+                          // alignment: Alignment.center,
+                        ],
+                      )),
                     ],
                   ),
                 ),

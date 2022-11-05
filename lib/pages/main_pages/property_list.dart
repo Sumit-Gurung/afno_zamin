@@ -30,12 +30,25 @@ class _PropScreenState extends State<PropScreen> {
         ),
         body: Column(children: [
           Container(
+            margin: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(6.0),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: primarycolor,
+              ),
+            ),
             height: 50.0,
             width: 250.0,
             child: DropdownButton(
               // Initial Value
               isExpanded: true,
               value: dropdownvalue,
+              style: TextStyle(
+                color: primarycolor,
+                fontSize: 16,
+              ),
 
               // Down Arrow Icon
               icon: const Icon(Icons.keyboard_arrow_down),
@@ -83,8 +96,9 @@ class PropertyTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
+          color: Colors.grey[100],
           border: Border.all(
-            color: Colors.grey,
+            color: primarycolor,
           ),
           borderRadius: BorderRadius.circular(6),
         ),
@@ -106,8 +120,10 @@ class PropertyTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Name: ${properties['name']}",
+                "${properties['name']}",
                 style: TextStyle(
+                  fontSize: 15,
+                  color: primarycolor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

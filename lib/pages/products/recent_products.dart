@@ -83,7 +83,7 @@ class RecentSingleProducts extends StatefulWidget {
 
 class _RecentSingleProductsState extends State<RecentSingleProducts> {
   bool islike = false;
-  final Color inactiveColor = Colors.black38;
+  final Color inactiveColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Column(
