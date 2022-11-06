@@ -33,7 +33,7 @@ class _LandScreenState extends State<LandScreen> {
             margin: EdgeInsets.all(8.0),
             padding: EdgeInsets.all(6.0),
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: Colors.grey[100],
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: primarycolor,
@@ -88,7 +88,10 @@ class PropertyTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: Colors.grey[100],
+          border: Border.all(
+            color: primarycolor,
+          ),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(children: [
