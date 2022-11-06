@@ -1,6 +1,11 @@
+import 'package:afnozamin/model/user.dart';
+import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -13,9 +18,44 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   final _formKey = GlobalKey<FormState>();
-   TextEditingController _nameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+   TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
  
+    void loginProcess() async {
+      var data = {
+          'username' : usernameController.text,
+          'password' : passwordController.text
+        };
+       var bodyPart = json.encode(data);
+    try{
+      
+      Response response = await http.post(
+        Uri.parse("http://192.168.1.68:8000/login"),
+        body: bodyPart,
+        headers: {
+          "Content-Type":"application/json"
+        }
+      );
+
+      if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
+        
+       
+        
+        print('Login successfully');
+     Navigator.push(context, new MaterialPageRoute(builder: (context) => HomeScreen()));
+
+        
+      }else {
+        print('failed to login');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+
+  }
+
+  User user = User('', '','','');
+  
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -43,40 +83,49 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Username",
                         labelText: "Username",
                       ),
-                       validator:MultiValidator([ RequiredValidator(errorText: "Required"),
+                    validator:MultiValidator([ RequiredValidator(errorText: "Required"),
                        PatternValidator((r'^[a-z A-Z]+$'), errorText: 'Character only')]),
                           
-                          controller: _nameController,
-                      
-                      onChanged: (value) {
-                        name = value;
-                        setState(() {});
+                    controller:usernameController ,
+                    onChanged: (value) {
+                       name = value;
+                       setState(() {});
                       },
+                   
                     ),
                     TextFormField(
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Enter Password",
                         labelText: "Password",
+                        
                       ),
-                       validator: MultiValidator([
+                         
+                    validator: MultiValidator([
                             RequiredValidator(errorText: "Required"),
                             MinLengthValidator(6,
                                 errorText:
                                     "Password must contain atleast 6 characters"),
    
                    ]),
-                          controller: _passwordController,
+                          controller: passwordController,
+                         
+                        
+                       // setState(() {});
+                      
                     ),
                     SizedBox(height: 35),
+                    
                     ElevatedButton(
                       onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                             
-                       Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                
-                              
-                            }
+                              //  save();
+                              loginProcess();
+                            print('ok');
+                          } else {
+                            print("not ok");
+                          }
+
                           },
                       
                       style: TextButton.styleFrom(minimumSize: Size(100, 40)),
@@ -89,13 +138,11 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Center(
                         child: Container(
-                          // // height: 40,
-                          // width: 60,
+                          
                           child: Text("SIGN UP",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15)),
               
-                          // alignment: Alignment.center,
                           decoration: BoxDecoration(
                               border: Border(
                                   bottom: BorderSide(color: Colors.black))),
