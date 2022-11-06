@@ -33,11 +33,11 @@ class _AddScreenState extends State<AddScreen> {
       body: ListView(
         children: [
           Container(
-            height: 180,
-            width: 180,
+            height: 150,
+            width: 150,
             decoration: BoxDecoration(
               image:
-                  DecorationImage(image: AssetImage("assets/images/Afno.png")),
+                  DecorationImage(image: AssetImage("assets/images/Afnoz.png")),
             ),
           ),
           Center(

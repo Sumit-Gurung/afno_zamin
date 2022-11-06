@@ -59,11 +59,17 @@ class Body extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Settingspage())),
                 ),
                 ProfileMenu(
-                  text: "Log Out",
-                  icon: "assets/images/logout.png",
-                  press: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage())),
-                ),
+                    text: "Log Out",
+                    icon: "assets/images/logout.png",
+                    //   press: () => Navigator.push(context,
+                    //       MaterialPageRoute(builder: (context) => LoginPage())),
+                    // )
+                    press: () => Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return LoginPage();
+                        }), (r) {
+                          return false;
+                        })),
               ],
             ),
           ),
