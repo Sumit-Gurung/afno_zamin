@@ -8,7 +8,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -19,44 +18,36 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   final formKey = GlobalKey<FormState>();
-   TextEditingController usernameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
- 
-    void loginProcess() async {
-      var data = {
-          'username' : usernameController.text,
-          'password' : passwordController.text
-        };
-       var bodyPart = json.encode(data);
-    try{
-      
+
+  void loginProcess() async {
+    var data = {
+      'username': usernameController.text,
+      'password': passwordController.text
+    };
+    var bodyPart = json.encode(data);
+    try {
       Response response = await http.post(
-        Uri.parse("http://192.168.1.68:8000/login"),
-        body: bodyPart,
-        headers: {
-          "Content-Type":"application/json"
-        }
-      );
+          Uri.parse("http://192.168.1.68:8000/login"),
+          body: bodyPart,
+          headers: {"Content-Type": "application/json"});
 
-      if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
-        
-       
-        
+      if (response.statusCode == 200 &&
+          jsonDecode(response.body.toString()) != null) {
         print('Login successfully');
-     Navigator.push(context, new MaterialPageRoute(builder: (context) => HomeScreen()));
-
-        
-      }else {
+        Navigator.push(
+            context, new MaterialPageRoute(builder: (context) => HomeScreen()));
+      } else {
         print('failed to login');
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
-
   }
 
-  User user = User('', '','','');
-  
+  User user = User('', '', '', '');
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -80,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 16),
             Form(
-              key:  formKey,
+              key: formKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Padding(
                 padding:
@@ -92,51 +83,45 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Username",
                         labelText: "Username",
                       ),
-                    validator:MultiValidator([ RequiredValidator(errorText: "Required"),
-                       PatternValidator((r'^[a-z A-Z]+$'), errorText: 'Character only')]),
-                          
-                    controller:usernameController ,
-                    onChanged: (value) {
-                       name = value;
-                       setState(() {});
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "Required"),
+                        PatternValidator((r'^[a-z A-Z]+$'),
+                            errorText: 'Character only')
+                      ]),
+                      controller: usernameController,
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
                       },
-                   
                     ),
                     TextFormField(
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Enter Password",
                         labelText: "Password",
-                        
                       ),
-                         
-                    validator: MultiValidator([
-                            RequiredValidator(errorText: "Required"),
-                            MinLengthValidator(6,
-                                errorText:
-                                    "Password must contain atleast 6 characters"),
-   
-                   ]),
-                          controller: passwordController,
-                         
-                        
-                       // setState(() {});
-                      
+
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "Required"),
+                        MinLengthValidator(6,
+                            errorText:
+                                "Password must contain atleast 6 characters"),
+                      ]),
+                      controller: passwordController,
+
+                      // setState(() {});
                     ),
                     SizedBox(height: 35),
-                    
                     ElevatedButton(
                       onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              //  save();
-                              loginProcess();
-                            print('ok');
-                          } else {
-                            print("not ok");
-                          }
-
-                          },
-                      
+                        if (formKey.currentState!.validate()) {
+                          //  save();
+                          loginProcess();
+                          print('ok');
+                        } else {
+                          print("not ok");
+                        }
+                      },
                       style: TextButton.styleFrom(minimumSize: Size(100, 40)),
                       child: Text(
                         "Login",

@@ -20,48 +20,40 @@ class _SignupPageState extends State<SignupPage> {
   bool _isVisible = false;
   String name = "";
   final formkey = GlobalKey<FormState>();
-   TextEditingController usernameController = TextEditingController();
-   TextEditingController phoneNumberController = TextEditingController();
-   TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
- 
-    void loginProcess() async {
-      var data = {
-          'username' : usernameController.text,
-          'password' : passwordController.text
-        };
-       var bodyPart = json.encode(data);
-    try{
-      
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void loginProcess() async {
+    var data = {
+      'username': usernameController.text,
+      'password': passwordController.text,
+      'phoneNumber': phoneNumberController.text,
+      'email': emailController.text
+    };
+    var bodyPart = json.encode(data);
+    try {
       Response response = await http.post(
-        Uri.parse("http://192.168.1.68:8000/signup"),
-        body: bodyPart,
-        headers: {
-          "Content-Type":"application/json"
-        }
-      );
+          Uri.parse("http://192.168.1.68:8000/signup"),
+          body: bodyPart,
+          headers: {"Content-Type": "application/json"});
 
-      if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
-        
-       
-        
+      if (response.statusCode == 200 &&
+          jsonDecode(response.body.toString()) != null) {
         print('Login successfully');
-     // ignore: use_build_context_synchronously, unnecessary_new
-     Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
-
-        
-      }else {
+        // ignore: use_build_context_synchronously, unnecessary_new
+        Navigator.push(
+            context, new MaterialPageRoute(builder: (context) => LoginPage()));
+      } else {
         print('failed to login');
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
-
   }
 
-  
   var confirmPass;
- 
 
   @override
   Widget build(BuildContext context) {
@@ -189,34 +181,29 @@ TextEditingController passwordController = TextEditingController();
                           return null;
                         },
                       ),
-                      TextFormField(controller: emailController,
+                      TextFormField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           hintText: "Enter Email",
                           labelText: "EmailAddress",
                         ),
-                      
                       ),
                       SizedBox(height: 25),
                       ElevatedButton(
-                          style:
-                              TextButton.styleFrom(minimumSize: Size(110, 40)),
-                          child: Text(
-                            "SignUp",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          onPressed: () {
-                            
-                            if (formkey.currentState!.validate()) {
-                              //  save();
-                              loginProcess();
+                        style: TextButton.styleFrom(minimumSize: Size(110, 40)),
+                        child: Text(
+                          "SignUp",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            loginProcess();
                             print('ok');
                           } else {
                             print("not ok");
                           }
-
-                          },
-                      
-                          ),
+                        },
+                      ),
                       SizedBox(height: 35),
                       Center(
                           child: Row(
