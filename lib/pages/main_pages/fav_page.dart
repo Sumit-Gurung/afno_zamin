@@ -45,10 +45,11 @@ class PropertyTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-          ),
+          color: Colors.grey[100],
           borderRadius: BorderRadius.circular(6),
+          border: Border.all(
+            color: primarycolor,
+          ),
         ),
         child: Row(children: [
           Container(

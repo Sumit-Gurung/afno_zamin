@@ -1,3 +1,4 @@
+import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -5,6 +6,8 @@ import '../../utils/routes.dart';
 import '../BottomBar.dart';
 
 class AddScreen extends StatefulWidget {
+  const AddScreen({Key? key}) : super(key: key);
+
   @override
   State<AddScreen> createState() => _AddScreenState();
 }
@@ -17,7 +20,7 @@ class _AddScreenState extends State<AddScreen> {
   List<String> propertyType = ['Land', 'Building', "Commercial"];
   late String _selectedProperty = propertyType[0];
 
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -143,12 +146,14 @@ class _AddScreenState extends State<AddScreen> {
                         // width: 60,
                         child: Text("Upload photo",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15)),
+                                color: primarycolor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17)),
 
                         // alignment: Alignment.center,
                         decoration: BoxDecoration(
                             border: Border(
-                                bottom: BorderSide(color: Colors.black))),
+                                bottom: BorderSide(color: primarycolor))),
                       ),
                     ),
                   ),
@@ -162,7 +167,10 @@ class _AddScreenState extends State<AddScreen> {
                       }
                     },
                     style: TextButton.styleFrom(minimumSize: Size(100, 40)),
-                    child: Text("ADD Property"),
+                    child: Text(
+                      "ADD PROPERTY",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   SizedBox(height: 20),
                 ],

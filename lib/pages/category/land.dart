@@ -30,6 +30,15 @@ class _LandScreenState extends State<LandScreen> {
         ),
         body: Column(children: [
           Container(
+            margin: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(6.0),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: primarycolor,
+              ),
+            ),
             height: 50.0,
             width: 250.0,
             child: DropdownButton(
@@ -79,8 +88,9 @@ class PropertyTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
+          color: Colors.grey[100],
           border: Border.all(
-            color: Colors.grey,
+            color: primarycolor,
           ),
           borderRadius: BorderRadius.circular(6),
         ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:afnozamin/model/user.dart';
+import 'package:afnozamin/pages/Home_screen.dart';
+import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/login_page.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -18,23 +19,16 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   bool _isVisible = false;
   String name = "";
-   final _formKey = GlobalKey<FormState>();
- TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmController = TextEditingController();
-  
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-
-  
- void SignUpProcess() async {
+  final formkey = GlobalKey<FormState>();
+   TextEditingController usernameController = TextEditingController();
+   TextEditingController phoneNumberController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+ 
+    void loginProcess() async {
       var data = {
           'username' : usernameController.text,
-          'password' : passwordController.text,
-          'phoneNumber' : phoneNumberController.text,
-          'email' : emailController.text,
-
-
+          'password' : passwordController.text
         };
        var bodyPart = json.encode(data);
     try{
@@ -48,8 +42,12 @@ class _SignupPageState extends State<SignupPage> {
       );
 
       if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
-        print('Registration Successfully');
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
+        
+       
+        
+        print('Login successfully');
+     // ignore: use_build_context_synchronously, unnecessary_new
+     Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
 
         
       }else {
@@ -60,143 +58,204 @@ class _SignupPageState extends State<SignupPage> {
     }
 
   }
- User user = User('', '','','');
-  
 
+  
+  var confirmPass;
  
+
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: Colors.white,
-        child: Form(
-          key: _formKey,
+      color: Colors.white,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 18.0),
           child: Column(
             children: [
-              Image.asset(
-                "assets/images/Afno.png",
-                fit: BoxFit.cover,
-                height: 215,
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 60, 20, 20),
+                child: Image.asset(
+                  "assets/images/Afnoz.png",
+                  fit: BoxFit.cover,
+                  height: 150,
+                ),
               ),
               Text(
                 "Join Us",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36,
+                    color: primarycolor),
               ),
-              SizedBox(height: 25),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Enter Username",
-                        labelText: "Username",
-                      ),
-                       
-                    
-                      validator:MultiValidator([ RequiredValidator(errorText: "Required"),
-                       PatternValidator((r'^[a-z A-Z]+$'), errorText: 'Character only')]),
-                          
-                          controller: usernameController,
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: "Enter Password",
-                        labelText: "Password",
-                      ),
-                      validator: MultiValidator([
-                            RequiredValidator(errorText: "Required"),
-                            MinLengthValidator(6,
-                                errorText:
-                                    "Password must contain atleast 6 characters"),
-   
-                   ]),
-                          controller: passwordController,
-
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      
-                      decoration: InputDecoration(
-                        hintText: "Confirm Password",
-                        labelText: "Confirm Password",
-                      ),
-                  //    
-                controller: confirmController,
-                validator: (val){
-                              if(val==null) {
-                                return 'Empty';
-                              }
-                              if(val != passwordController.text){
-                                   return 'Not Match';
-                              }
-                              return null;
-                              }
-                       
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Enter PhoneNumber",
-                        labelText: "PhoneNumber",
-                      ),
-                     
-                    
-                      validator: MultiValidator([
-                            RequiredValidator(errorText: "Required"),
-                           PatternValidator( r'^[0-9]{10}$', errorText: "only 10 digits allowed !")
-                          ]),
-                          controller: phoneNumberController,
-                    ),
-
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Enter Email",
-                        labelText: "EmailAddress",
-                      ),
-                      validator: MultiValidator([
-                            RequiredValidator(errorText: "Required"),
-                            EmailValidator(
-                                errorText:
-                                    "Please enter a valid email address"),
-                          ]),
-                          controller: emailController,
-                    ),
-                    SizedBox(height: 35),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                             
-                      SignUpProcess();
-                     }
-                      },
-                      style: TextButton.styleFrom(minimumSize: Size(100, 40)),
-                      child: Text("SignUp"),
-                    ),
-                    SizedBox(height: 35),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.loginRoute);
-                      },
-                      child: Center(
-                        child: Container(
-                          // // height: 40,
-                          // width: 60,
-                          child: Text("Log IN",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15)),
-        
-                          // alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: Colors.black))),
+              SizedBox(height: 10),
+              Form(
+                key: formkey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: usernameController,
+                        decoration: InputDecoration(
+                          hintText: "Enter Username",
+                          labelText: "Username",
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter UserName';
+                          }
+                          return null;
+                        },
                       ),
-                    )
-                  ],
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: !_isVisible,
+                        // obscureText: true,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isVisible = !_isVisible;
+                              });
+                            },
+                            icon: _isVisible
+                                ? Icon(
+                                    Icons.visibility,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.visibility_off,
+                                    color: Colors.grey,
+                                  ),
+                          ),
+                          hintText: "Enter Password",
+                          labelText: "Password",
+                        ),
+                        validator: (value) {
+                          confirmPass = value;
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Password';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        obscureText: !_isVisible,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isVisible = !_isVisible;
+                              });
+                            },
+                            icon: _isVisible
+                                ? Icon(
+                                    Icons.visibility,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.visibility_off,
+                                    color: Colors.grey,
+                                  ),
+                          ),
+                          hintText: "Confirm Password",
+                          labelText: "Confirm Password",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Password';
+                          } else if (value != confirmPass) {
+                            return "Password must be same as above";
+                          }
+
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: phoneNumberController,
+                        decoration: InputDecoration(
+                          hintText: "Enter PhoneNumber",
+                          labelText: "PhoneNumber",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter PhoneNumber';
+                          } else if (value.length != 10) {
+                            return "Phone Number Must be 10 digits";
+                          }
+
+                          return null;
+                        },
+                      ),
+                      TextFormField(controller: emailController,
+                        decoration: InputDecoration(
+                          hintText: "Enter Email",
+                          labelText: "EmailAddress",
+                        ),
+                      
+                      ),
+                      SizedBox(height: 25),
+                      ElevatedButton(
+                          style:
+                              TextButton.styleFrom(minimumSize: Size(110, 40)),
+                          child: Text(
+                            "SignUp",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          onPressed: () {
+                            
+                            if (formkey.currentState!.validate()) {
+                              //  save();
+                              loginProcess();
+                            print('ok');
+                          } else {
+                            print("not ok");
+                          }
+
+                          },
+                      
+                          ),
+                      SizedBox(height: 35),
+                      Center(
+                          child: Row(
+                        children: [
+                          Text(
+                            'Already have an account? ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(color: primarycolor))),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, MyRoutes.loginRoute);
+                              },
+                              child: Text("Log IN",
+                                  style: TextStyle(
+                                      color: primarycolor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                            ),
+                          ),
+
+                          // alignment: Alignment.center,
+                        ],
+                      )),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
