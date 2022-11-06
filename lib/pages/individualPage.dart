@@ -3,6 +3,7 @@ import 'package:afnozamin/pages/ename.dart';
 // import 'package:afnozamin/pages/search_bar.dart';
 import 'package:afnozamin/pages/slider/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -28,8 +29,8 @@ class _individualpageState extends State<individualpage> {
         selectedMenu: MenuState.userprofile,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          canLaunchUrlString('tel:+9806773686');
+        onPressed: () async {
+          await FlutterPhoneDirectCaller.callNumber("123456789");
         },
         child: Icon(Icons.phone),
       ),
