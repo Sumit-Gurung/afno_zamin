@@ -152,10 +152,15 @@ class _SettingspageState extends State<Settingspage> {
                 ),
               ),
             ),
-            gesdetector(context, "content settings"),
-            gesdetector(context, "Social"),
-            gesdetector(context, "Language"),
-            gesdetector(context, "Privacy and Security"),
+            gesdetector(
+                context, "Social", ['Facebook', 'Twitter', 'Instagram']),
+            gesdetector(context, "Language", [
+              'English',
+              'Nepali',
+            ]),
+            gesdetector(context, "About Us", [
+              'Afno Zamin is a Real Estate-based smartphone application that helps users to register their properties and provide a platform for the buyers for finding properties and houses and seller for listing their properties and houses along with communication without brokers assistance.'
+            ]),
             SizedBox(
               height: 10,
             ),
@@ -205,7 +210,8 @@ class _SettingspageState extends State<Settingspage> {
     );
   }
 
-  GestureDetector gesdetector(BuildContext context, String title) {
+  GestureDetector gesdetector(
+      BuildContext context, String title, List<String> data) {
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -215,11 +221,7 @@ class _SettingspageState extends State<Settingspage> {
                 title: Text(title),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Option 1"),
-                    Text("option 2"),
-                    Text('option 3'),
-                  ],
+                  children: data.map((e) => Text(e)).toList(),
                 ),
                 actions: [
                   FloatingActionButton(

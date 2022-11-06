@@ -1,6 +1,13 @@
+import 'dart:convert';
+
+import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/constants.dart';
+import 'package:afnozamin/pages/login_page.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -13,15 +20,48 @@ class _SignupPageState extends State<SignupPage> {
   bool _isVisible = false;
   String name = "";
   final formkey = GlobalKey<FormState>();
-  // ignore: prefer_typing_uninitialized_variables
+   TextEditingController usernameController = TextEditingController();
+   TextEditingController phoneNumberController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+ 
+    void loginProcess() async {
+      var data = {
+          'username' : usernameController.text,
+          'password' : passwordController.text
+        };
+       var bodyPart = json.encode(data);
+    try{
+      
+      Response response = await http.post(
+        Uri.parse("http://192.168.1.68:8000/signup"),
+        body: bodyPart,
+        headers: {
+          "Content-Type":"application/json"
+        }
+      );
+
+      if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
+        
+       
+        
+        print('Login successfully');
+     // ignore: use_build_context_synchronously, unnecessary_new
+     Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
+
+        
+      }else {
+        print('failed to login');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+
+  }
+
+  
   var confirmPass;
-  // void validate() {
-  //   if (formkey.currentState.validate()) {
-  //     print("ok");
-  //   } else {
-  //     print("error");
-  //   }
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +97,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: usernameController,
                         decoration: InputDecoration(
                           hintText: "Enter Username",
                           labelText: "Username",
@@ -69,6 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       TextFormField(
+                        controller: passwordController,
                         obscureText: !_isVisible,
                         // obscureText: true,
                         decoration: InputDecoration(
@@ -132,6 +174,7 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       TextFormField(
+                        controller: phoneNumberController,
                         decoration: InputDecoration(
                           hintText: "Enter PhoneNumber",
                           labelText: "PhoneNumber",
@@ -146,15 +189,12 @@ class _SignupPageState extends State<SignupPage> {
                           return null;
                         },
                       ),
-                      TextFormField(
+                      TextFormField(controller: emailController,
                         decoration: InputDecoration(
                           hintText: "Enter Email",
                           labelText: "EmailAddress",
                         ),
-                        // validator: (email) =>
-                        //     email != null && !EmailValidator.validate(email)
-                        //         ? 'Enter a valid Email'
-                        //         : null,
+                      
                       ),
                       SizedBox(height: 25),
                       ElevatedButton(
@@ -165,12 +205,18 @@ class _SignupPageState extends State<SignupPage> {
                             style: TextStyle(fontSize: 16),
                           ),
                           onPressed: () {
-                            final isValidForm =
-                                formkey.currentState!.validate();
-                            if (isValidForm) {
-                              Navigator.pushNamed(context, MyRoutes.loginRoute);
-                            }
-                          }),
+                            
+                            if (formkey.currentState!.validate()) {
+                              //  save();
+                              loginProcess();
+                            print('ok');
+                          } else {
+                            print("not ok");
+                          }
+
+                          },
+                      
+                          ),
                       SizedBox(height: 35),
                       Center(
                           child: Row(
