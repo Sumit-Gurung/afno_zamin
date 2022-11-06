@@ -28,8 +28,10 @@ TextEditingController passwordController = TextEditingController();
     void loginProcess() async {
       var data = {
           'username' : usernameController.text,
-          'password' : passwordController.text
-        };
+          'password' : passwordController.text,
+          'phoneNumber' : phoneNumberController.text,
+          'email' : emailController.text
+          };
        var bodyPart = json.encode(data);
     try{
       
@@ -42,10 +44,7 @@ TextEditingController passwordController = TextEditingController();
       );
 
       if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
-        
-       
-        
-        print('Login successfully');
+       print('Registration successful ');
      // ignore: use_build_context_synchronously, unnecessary_new
      Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
 
