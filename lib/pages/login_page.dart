@@ -1,6 +1,13 @@
+import 'package:afnozamin/model/user.dart';
+import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,8 +18,45 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String name = "";
-  bool _isVisible = false;
-  final formkey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+   TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+ 
+    void loginProcess() async {
+      var data = {
+          'username' : usernameController.text,
+          'password' : passwordController.text
+        };
+       var bodyPart = json.encode(data);
+    try{
+      
+      Response response = await http.post(
+        Uri.parse("http://192.168.1.68:8000/login"),
+        body: bodyPart,
+        headers: {
+          "Content-Type":"application/json"
+        }
+      );
+
+      if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
+        
+       
+        
+        print('Login successfully');
+     Navigator.push(context, new MaterialPageRoute(builder: (context) => HomeScreen()));
+
+        
+      }else {
+        print('failed to login');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+
+  }
+
+  User user = User('', '','','');
+  
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -36,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 16),
             Form(
-              key: formkey,
+              key:  formKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Padding(
                 padding:
@@ -48,42 +92,51 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Username",
                         labelText: "Username",
                       ),
-                      onChanged: (value) {
-                        name = value;
-                        setState(() {});
+                    validator:MultiValidator([ RequiredValidator(errorText: "Required"),
+                       PatternValidator((r'^[a-z A-Z]+$'), errorText: 'Character only')]),
+                          
+                    controller:usernameController ,
+                    onChanged: (value) {
+                       name = value;
+                       setState(() {});
                       },
+                   
                     ),
                     TextFormField(
-                      obscureText: !_isVisible,
+                      obscureText: true,
                       decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _isVisible = !_isVisible;
-                            });
-                          },
-                          icon: _isVisible
-                              ? Icon(
-                                  Icons.visibility,
-                                  color: Colors.black,
-                                )
-                              : Icon(
-                                  Icons.visibility_off,
-                                  color: Colors.grey,
-                                ),
-                        ),
                         hintText: "Enter Password",
                         labelText: "Password",
+                        
                       ),
+                         
+                    validator: MultiValidator([
+                            RequiredValidator(errorText: "Required"),
+                            MinLengthValidator(6,
+                                errorText:
+                                    "Password must contain atleast 6 characters"),
+   
+                   ]),
+                          controller: passwordController,
+                         
+                        
+                       // setState(() {});
+                      
                     ),
                     SizedBox(height: 35),
+                    
                     ElevatedButton(
                       onPressed: () {
-                        final isValidForm = formkey.currentState!.validate();
-                        if (isValidForm) {
-                          Navigator.pushNamed(context, MyRoutes.homeRoute);
-                        }
-                      },
+                            if (formKey.currentState!.validate()) {
+                              //  save();
+                              loginProcess();
+                            print('ok');
+                          } else {
+                            print("not ok");
+                          }
+
+                          },
+                      
                       style: TextButton.styleFrom(minimumSize: Size(100, 40)),
                       child: Text(
                         "Login",
