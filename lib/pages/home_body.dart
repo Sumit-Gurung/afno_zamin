@@ -10,10 +10,13 @@ import 'package:afnozamin/pages/products/recent_products.dart';
 import 'package:afnozamin/pages/signup_page.dart';
 import 'package:afnozamin/pages/slider/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'Custom_appbar.dart';
 import 'drawer.dart';
+import 'main_pages/subprofile/myinformation.dart';
+import 'products/expandproducts.dart';
 import 'search_bar.dart';
 
 class homebody extends StatefulWidget {
@@ -37,16 +40,27 @@ class _homebodyState extends State<homebody> {
               //create column and row inside it
               //space between bar and  search
               // ignore: prefer_const_constructors
-              SizedBox(
-                height: 4,
-              ),
               SearchBar(),
-              SizedBox(
-                height: 5,
-              ),
               //to create slider
               //we create asset foler and import the required images
               // giving image folder path in pubspec
+              Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Popular Now',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Roboto-black',
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               ProductSlider(),
               //defininig size for categories
               // SizedBox(
@@ -56,6 +70,39 @@ class _homebodyState extends State<homebody> {
               // SizedBox(
               //   height: 20,
               // ),
+              Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Recomended',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Roboto-black',
+                        color: Colors.black87,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          PageTransition(
+                              duration: Duration(microseconds: 200),
+                              type: PageTransitionType.rightToLeft,
+                              child: ExpandProd())),
+                      child: Column(
+                        children: [
+                          Text(
+                            'See all',
+                            style: TextStyle(fontSize: 16),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
               Container(height: 272, child: RecentProducts()),
             ],
           ),

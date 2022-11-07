@@ -1,0 +1,40 @@
+import 'package:afnozamin/pages/products/recent_products.dart';
+import 'package:flutter/material.dart';
+
+import '../Custom_appbar.dart';
+import '../drawer.dart';
+
+class ExpandProd extends StatelessWidget {
+  const ExpandProd({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Afno zamin',
+          style: TextStyle(color: Colors.black87),
+        ),
+        backgroundColor: Colors.white60,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: Container(
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(height: 700, child: RecentProducts())),
+                // RecentProducts(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
