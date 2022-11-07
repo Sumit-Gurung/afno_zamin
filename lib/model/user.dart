@@ -5,5 +5,5 @@ class User {
   String username;
   String phoneNumber;
 
-  User(this.username, this.password,this.phoneNumber,this.email);
+  User(this.username, this.password, this.phoneNumber, this.email);
 }

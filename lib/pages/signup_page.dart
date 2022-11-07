@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/login_page.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -35,18 +33,18 @@ class _SignupPageState extends State<SignupPage> {
     var bodyPart = json.encode(data);
     try {
       Response response = await http.post(
-          Uri.parse("http://192.168.1.68:8000/signup"),
+          Uri.parse("http://192.168.1.71:8000/signup"),
           body: bodyPart,
           headers: {"Content-Type": "application/json"});
 
       if (response.statusCode == 200 &&
           jsonDecode(response.body.toString()) != null) {
-        print('Login successfully');
+        print('Registration successful ');
         // ignore: use_build_context_synchronously, unnecessary_new
         Navigator.push(
             context, new MaterialPageRoute(builder: (context) => LoginPage()));
       } else {
-        print('failed to login');
+        print('fail to login..');
       }
     } catch (e) {
       print(e.toString());

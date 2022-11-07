@@ -3,6 +3,7 @@ import 'package:afnozamin/pages/Home_screen.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -27,19 +28,29 @@ class _LoginPageState extends State<LoginPage> {
       'password': passwordController.text
     };
     var bodyPart = json.encode(data);
+
+    // message
     try {
       Response response = await http.post(
-          Uri.parse("http://192.168.1.68:8000/login"),
+          Uri.parse("http://192.168.1.71:8000/login"),
           body: bodyPart,
           headers: {"Content-Type": "application/json"});
-
+      print(response);
       if (response.statusCode == 200 &&
           jsonDecode(response.body.toString()) != null) {
         print('Login successfully');
+        print(jsonDecode(response.body.toString()));
+
         Navigator.push(
             context, new MaterialPageRoute(builder: (context) => HomeScreen()));
       } else {
-        print('failed to login');
+        print('fail to login');
+        Fluttertoast.showToast(
+            msg: "INVALID USER",
+            toastLength: Toast.LENGTH_SHORT, // length
+            gravity: ToastGravity.CENTER, // location
+            timeInSecForIosWeb: 5);
+        // message
       }
     } catch (e) {
       print(e.toString());
@@ -72,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 16),
             Form(
               key: formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              //autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
@@ -100,7 +111,6 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Password",
                         labelText: "Password",
                       ),
-
                       validator: MultiValidator([
                         RequiredValidator(errorText: "Required"),
                         MinLengthValidator(6,
@@ -108,14 +118,11 @@ class _LoginPageState extends State<LoginPage> {
                                 "Password must contain atleast 6 characters"),
                       ]),
                       controller: passwordController,
-
-                      // setState(() {});
                     ),
                     SizedBox(height: 35),
                     ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          //  save();
                           loginProcess();
                           print('ok');
                         } else {
