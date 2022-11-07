@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import 'package:afnozamin/pages/drawer.dart';
 import 'package:afnozamin/pages/ename.dart';
+import 'package:afnozamin/pages/main_pages/subprofile/myinformation.dart';
 import 'package:afnozamin/pages/main_pages/subprofile/settings.dart';
 import 'package:afnozamin/pages/notificationview.dart';
 import 'package:afnozamin/pages/product/product_page.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import '../BottomBar.dart';
 import '../Custom_appbar.dart';
@@ -65,7 +65,10 @@ class Body extends StatelessWidget {
                 ProfileMenu(
                   text: "My information",
                   icon: "assets/images/property.png",
-                  press: () => ProductPage(),
+                  press: () => Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade, child: Myinfo())),
                 ),
                 ProfileMenu(
                   text: "Settings",

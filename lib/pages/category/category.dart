@@ -14,7 +14,7 @@ class _CategoryState extends State<Category> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 70,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
