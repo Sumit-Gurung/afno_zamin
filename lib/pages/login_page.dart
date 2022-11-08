@@ -7,6 +7,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     try{
       
       Response response = await http.post(
-        Uri.parse("http://192.168.1.68:8000/login"),
+        Uri.parse("http://192.168.1.92:8000/login"),
         body: bodyPart,
         headers: {
           "Content-Type":"application/json"
@@ -40,7 +41,10 @@ class _LoginPageState extends State<LoginPage> {
 
       if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
         
-       
+        FlutterSecureStorage().write(
+          key: "ZAMIN_USER",
+          value: response.body.toString(),
+        );
         
         print('Login successfully');
      Navigator.push(context, new MaterialPageRoute(builder: (context) => HomeScreen()));

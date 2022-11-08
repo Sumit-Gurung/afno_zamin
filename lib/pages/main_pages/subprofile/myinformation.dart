@@ -1,11 +1,37 @@
+import 'dart:convert';
+
+import 'package:afnozamin/model/user.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/notificationview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Myinfo extends StatelessWidget {
+class Myinfo extends StatefulWidget {
   const Myinfo({Key? key}) : super(key: key);
 
   @override
+  State<Myinfo> createState() => _MyinfoState();
+}
+
+class _MyinfoState extends State<Myinfo> {
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  getUser() async {
+    var test = await const FlutterSecureStorage().read(key: "ZAMIN_USER");
+    setState(() {
+      user = User.fromJson((jsonDecode(test!)));
+    });
+    print(user);
+  }
+
+
+  @override 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,9 +54,9 @@ class Myinfo extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            Listprofile(Icons.person, 'UserName', 'Sumit Gurung'),
-            Listprofile(Icons.email, 'Email', 'sumitgurung@gces.edu.np'),
-            Listprofile(Icons.phone, 'Phone', '9866000000'),
+            Listprofile(Icons.person, 'UserName', user!.username),
+            Listprofile(Icons.email, 'Email',  user!.email),
+            Listprofile(Icons.phone, 'Phone', user!.phoneNumber),
           ],
         ),
       ),
