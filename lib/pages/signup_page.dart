@@ -33,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
     var bodyPart = json.encode(data);
     try {
       Response response = await http.post(
-          Uri.parse("http://192.168.1.71:8000/signup"),
+          Uri.parse("http://192.168.1.93:8000/signup"),
           body: bodyPart,
           headers: {"Content-Type": "application/json"});
 
@@ -51,6 +51,7 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+  // ignore: prefer_typing_uninitialized_variables
   var confirmPass;
 
   @override

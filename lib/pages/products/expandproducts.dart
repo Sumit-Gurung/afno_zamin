@@ -12,11 +12,11 @@ class ExpandProd extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Afno zamin',
-          style: TextStyle(color: Colors.black87),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white60,
+        // backgroundColor: Colors.white60,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),

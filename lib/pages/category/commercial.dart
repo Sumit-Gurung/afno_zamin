@@ -26,7 +26,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Properties list'),
+          title: Text('Commercial Building list'),
         ),
         body: Column(children: [
           Container(

@@ -8,6 +8,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String name = "";
+  bool _isVisible = false;
   final formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -32,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     // message
     try {
       Response response = await http.post(
-          Uri.parse("http://192.168.1.71:8000/login"),
+          Uri.parse("http://192.168.1.93:8000/login"),
           body: bodyPart,
           headers: {"Content-Type": "application/json"});
       print(response);
@@ -40,6 +42,11 @@ class _LoginPageState extends State<LoginPage> {
           jsonDecode(response.body.toString()) != null) {
         print('Login successfully');
         print(jsonDecode(response.body.toString()));
+
+        const FlutterSecureStorage().write(
+          key: "ZAMIN_USER",
+          value: response.body.toString(),
+        );
 
         Navigator.push(
             context, new MaterialPageRoute(builder: (context) => HomeScreen()));
@@ -58,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   User user = User('', '', '', '');
+  var confirmPass;
 
   @override
   Widget build(BuildContext context) {
@@ -106,18 +114,36 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                     TextFormField(
-                      obscureText: true,
+                      controller: passwordController,
+                      obscureText: !_isVisible,
+                      // obscureText: true,
                       decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _isVisible = !_isVisible;
+                            });
+                          },
+                          icon: _isVisible
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                        ),
                         hintText: "Enter Password",
                         labelText: "Password",
                       ),
-                      validator: MultiValidator([
-                        RequiredValidator(errorText: "Required"),
-                        MinLengthValidator(6,
-                            errorText:
-                                "Password must contain atleast 6 characters"),
-                      ]),
-                      controller: passwordController,
+                      validator: (value) {
+                        confirmPass = value;
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Password';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 35),
                     ElevatedButton(

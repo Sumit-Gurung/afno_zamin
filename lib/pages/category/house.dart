@@ -26,7 +26,7 @@ class _HouseScreenState extends State<HouseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Properties list'),
+          title: Text(' House list'),
         ),
         body: Column(children: [
           Container(

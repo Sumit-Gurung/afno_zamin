@@ -1,9 +1,28 @@
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/notificationview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Myinfo extends StatelessWidget {
+class Myinfo extends StatefulWidget {
   const Myinfo({Key? key}) : super(key: key);
+
+  @override
+  State<Myinfo> createState() => _MyinfoState();
+}
+
+class _MyinfoState extends State<Myinfo> {
+  dynamic user;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  getUserData() async {
+    var test = await FlutterSecureStorage().read(key: "ZAMIN_USER");
+
+    print(test);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +47,9 @@ class Myinfo extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            Listprofile(Icons.person, 'UserName', 'Sumit Gurung'),
-            Listprofile(Icons.email, 'Email', 'sumitgurung@gces.edu.np'),
-            Listprofile(Icons.phone, 'Phone', '9866000000'),
+            Listprofile(Icons.person, 'UserName', user["username"] ?? ''),
+            Listprofile(Icons.email, 'Email', user["email"] ?? ''),
+            Listprofile(Icons.phone, 'Phone', user["phoneNumber"] ?? ''),
           ],
         ),
       ),

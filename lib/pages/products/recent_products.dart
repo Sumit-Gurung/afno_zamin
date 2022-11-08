@@ -92,53 +92,52 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: primarycolor,
-        ),
       ),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: (() {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => individualpage()));
-            }),
-            child: Container(
-              height: 140,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(widget.recent_single_product_image),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: (() {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => individualpage()));
+              }),
+              child: Container(
+                height: 140,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(widget.recent_single_product_image),
+                  ),
                 ),
               ),
             ),
-          ),
-          ListTile(
-              title: Text(widget.recent_single_product_name),
-              subtitle: Text(widget.recent_single_product_price),
-              // we use trailing widget to create favorite
-              trailing: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                    color: primarycolor,
-                    borderRadius: BorderRadius.circular(30)),
-                child: IconButton(
-                  icon: Icon(
-                    islike ? Icons.favorite : Icons.favorite_border_outlined,
-                    color: islike ? Colors.red : inactiveColor,
-                    size: 15,
+            ListTile(
+                title: Text(widget.recent_single_product_name),
+                subtitle: Text(widget.recent_single_product_price),
+                // we use trailing widget to create favorite
+                trailing: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      color: primarycolor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: IconButton(
+                    icon: Icon(
+                      islike ? Icons.favorite : Icons.favorite_border_outlined,
+                      color: islike ? Colors.red : inactiveColor,
+                      size: 15,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        islike = !islike;
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      islike = !islike;
-                    });
-                  },
-                ),
-              ))
-        ],
+                ))
+          ],
+        ),
       ),
     );
   }

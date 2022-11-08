@@ -55,7 +55,7 @@ class _homebodyState extends State<homebody> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Roboto-black',
-                        color: Colors.black87,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -81,7 +81,7 @@ class _homebodyState extends State<homebody> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Roboto-black',
-                        color: Colors.black87,
+                        color: primarycolor,
                       ),
                     ),
                     InkWell(
@@ -93,9 +93,10 @@ class _homebodyState extends State<homebody> {
                               child: ExpandProd())),
                       child: Column(
                         children: [
+                          Icon(Icons.arrow_drop_down),
                           Text(
                             'See all',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 17, color: primarycolor),
                           )
                         ],
                       ),
