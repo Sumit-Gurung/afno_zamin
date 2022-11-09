@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'Home_screen.dart';
-import 'main_pages/search_page.dart';
+// import 'main_pages/search_page.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({

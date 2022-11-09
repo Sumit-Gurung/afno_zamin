@@ -1,6 +1,9 @@
+import 'package:afnozamin/controllers/products_controller.dart';
+import 'package:afnozamin/model/product.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import '../favorite_button.dart';
 import '../individualPage.dart';
 
 class RecentProducts extends StatelessWidget {
@@ -10,33 +13,26 @@ class RecentProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     //creating grid to show columns of items
 
-    return GridView.builder(
-        itemCount: productList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.8),
-        itemBuilder: (BuildContext context, int index) {
-          //assign values to variables
-          return RecentSingleProducts(
-            recent_single_product_disc: productList[index]['disc'],
-            recent_single_product_name: productList[index]['name'],
-            recent_single_product_image: productList[index]['image'],
-            recent_single_product_price: productList[index]['price'],
-          );
-        });
+    return Consumer<ProductController>(
+        builder: (context, productController, child) {
+      return GridView.builder(
+          itemCount: productController.all.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 0.8),
+          itemBuilder: (BuildContext context, int index) {
+            //assign values to variables
+            return RecentSingleProducts(product: productController.all[index]);
+          });
+    });
   }
 }
 
 class RecentSingleProducts extends StatefulWidget {
-  final recent_single_product_name;
-  final recent_single_product_image;
-  final recent_single_product_price;
-  final recent_single_product_disc;
+  final Product product;
 
   RecentSingleProducts({
-    this.recent_single_product_name,
-    this.recent_single_product_image,
-    this.recent_single_product_price,
-    this.recent_single_product_disc,
+    Key? key,
+    required this.product,
   });
 
   @override
@@ -60,8 +56,10 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
           children: [
             GestureDetector(
               onTap: (() {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => individualpage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => IndividualPage(
+                          product: widget.product,
+                        )));
               }),
               child: Container(
                 height: 140,
@@ -70,33 +68,17 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
                   borderRadius: BorderRadius.circular(30),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(widget.recent_single_product_image),
+                    image: AssetImage("assets/images/Afnoz.png"),
                   ),
                 ),
               ),
             ),
             ListTile(
-                title: Text(widget.recent_single_product_name),
-                subtitle: Text(widget.recent_single_product_price),
+                title: Text(widget.product.title),
+                subtitle: Text("Rs. ${widget.product.price}"),
                 // we use trailing widget to create favorite
-                trailing: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      color: primarycolor,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: IconButton(
-                    icon: Icon(
-                      islike ? Icons.favorite : Icons.favorite_border_outlined,
-                      color: islike ? Colors.red : inactiveColor,
-                      size: 15,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        islike = !islike;
-                      });
-                    },
-                  ),
+                trailing: FavoriteButton(
+                  product: widget.product,
                 ))
           ],
         ),

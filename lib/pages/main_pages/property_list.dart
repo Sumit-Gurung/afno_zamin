@@ -1,10 +1,14 @@
+import 'package:afnozamin/controllers/products_controller.dart';
 import 'package:afnozamin/model/user.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
-import 'package:afnozamin/pages/individualPage.dart';
+import 'package:afnozamin/pages/IndividualPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../model/product.dart';
 import '../BottomBar.dart';
+import '../category/property_tile.dart';
 
 class PropScreen extends StatefulWidget {
   @override
@@ -13,38 +17,32 @@ class PropScreen extends StatefulWidget {
 
 class _PropScreenState extends State<PropScreen> {
   String dropdownvalue = 'Sort By';
-  bool isDescending = false;
+
+  List<Product> allProducts = [];
 
   // List of items in our dropdown menu
   var items = [
     'Sort By',
-    'Default',
     'Price (Ascending)',
     'Price (Descending)',
   ];
-  List<Map<String, String>> _foundusers = [];
-  List<Map<String, String>> sorteddata = [];
+
   @override
   void initState() {
-    _foundusers = productList;
     super.initState();
-  }
 
-  List<Map<String, String>> results = [];
-  void _runFilter() {
-    results = productList
-      ..sort((item1, item2) => item1['price']!.compareTo(item2['price']!));
     setState(() {
-      _foundusers = results;
+      allProducts = Provider.of<ProductController>(context, listen: false).all;
     });
   }
 
-  void _runreverse() {
-    results = productList
-      ..sort((item1, item2) => item1['price']!.compareTo(item2['price']!));
-    setState(() {
-      _foundusers = results.reversed.toList();
-    });
+  void sort() {
+    if (dropdownvalue == 'Price (Ascending)') {
+      allProducts.sort(((a, b) => a.price.compareTo(b.price)));
+    } else if (dropdownvalue == 'Price (Descending)') {
+      allProducts.sort(((a, b) => b.price.compareTo(a.price)));
+    }
+    setState(() {});
   }
 
   @override
@@ -88,16 +86,12 @@ class _PropScreenState extends State<PropScreen> {
               // After selecting the desired option,it will
               // change button value to selected value
               onChanged: (String? newValue) {
-                setState(() {
-                  if (dropdownvalue == "Price (Ascending)") {
-                    _runreverse();
-                  }
-                  if (dropdownvalue == "Price (Descending)") {
-                    _runFilter();
-                  }
-
-                  dropdownvalue = newValue!;
-                });
+                if (newValue != null) {
+                  setState(() {
+                    dropdownvalue = newValue;
+                  });
+                  sort();
+                }
               },
             ),
           ),
@@ -106,68 +100,10 @@ class _PropScreenState extends State<PropScreen> {
           ),
           Expanded(
             child: ListView(
-              children: _foundusers.map((e) => PropertyTile(e)).toList(),
+              children:
+                  allProducts.map((e) => PropertyTile(product: e)).toList(),
             ),
           )
         ]));
-  }
-}
-
-class PropertyTile extends StatelessWidget {
-  Map<String, dynamic> properties;
-
-  PropertyTile(
-    this.properties, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (() {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => individualpage()));
-      }),
-      child: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-          border: Border.all(
-            color: primarycolor,
-          ),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Row(children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(properties['image']),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${properties['name']}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: primarycolor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text("Price: ${properties['price']}"),
-              Text("Description: ${properties['disc']}"),
-            ],
-          ),
-        ]),
-      ),
-    );
   }
 }

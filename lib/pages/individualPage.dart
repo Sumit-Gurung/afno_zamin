@@ -1,22 +1,27 @@
+import 'package:afnozamin/model/product.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
+import 'package:afnozamin/pages/favorite_button.dart';
 // import 'package:afnozamin/pages/search_bar.dart';
 import 'package:afnozamin/pages/slider/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 // import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import 'BottomBar.dart';
 // import 'Custom_appbar.dart';
 
-class individualpage extends StatefulWidget {
+class IndividualPage extends StatefulWidget {
+  final Product product;
+
+  IndividualPage({Key? key, required this.product});
+
   @override
-  State<individualpage> createState() => _individualpageState();
+  State<IndividualPage> createState() => _IndividualPageState();
 }
 
-class _individualpageState extends State<individualpage> {
+class _IndividualPageState extends State<IndividualPage> {
   bool islike = false;
   final Color inactiveColor = Colors.white;
   @override
@@ -30,7 +35,11 @@ class _individualpageState extends State<individualpage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await FlutterPhoneDirectCaller.callNumber("123456789");
+          String toCall = "009779814117721";
+          if (widget.product.uploader != null) {
+            toCall = widget.product.uploader!.phoneNumber;
+          }
+          await FlutterPhoneDirectCaller.callNumber(toCall);
         },
         child: Icon(Icons.phone),
       ),
@@ -58,7 +67,7 @@ class _individualpageState extends State<individualpage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "House Lamachaur",
+                            widget.product.title,
                             style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: 24,
@@ -69,7 +78,7 @@ class _individualpageState extends State<individualpage> {
                             height: 10,
                           ),
                           Text(
-                            "Rs.15000000",
+                            "Rs.${widget.product.price}",
                             style: TextStyle(
                               color: primarycolor,
                               fontSize: 18,
@@ -78,28 +87,7 @@ class _individualpageState extends State<individualpage> {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: primarycolor,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            islike
-                                ? Icons.favorite
-                                : Icons.favorite_border_outlined,
-                            color: islike ? Colors.red : inactiveColor,
-                            size: 16,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              islike = !islike;
-                            });
-                          },
-                        ),
-                      ),
+                      FavoriteButton(product: widget.product),
                     ],
                   ),
                   SizedBox(
@@ -111,9 +99,14 @@ class _individualpageState extends State<individualpage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      DetailCard(icon: Icons.location_city, text: 'Lamachaur'),
-                      DetailCard(icon: Icons.category, text: 'Sell'),
-                      DetailCard(icon: Icons.area_chart, text: '100sq.m'),
+                      DetailCard(
+                          icon: Icons.location_city,
+                          text: widget.product.location),
+                      DetailCard(
+                          icon: Icons.category, text: widget.product.purpose),
+                      DetailCard(
+                          icon: Icons.area_chart,
+                          text: "${widget.product.area}"),
                     ],
                   ),
                   SizedBox(
@@ -143,7 +136,7 @@ class _individualpageState extends State<individualpage> {
                           height: 10,
                         ),
                         Text(
-                          'lorem ubac ihkascikh goaschasi hasi hasi ihiah +6+5asc ascasc a ascascasc',
+                          widget.product.description,
                           style: TextStyle(
                             color: Color.fromARGB(255, 95, 95, 95),
                             fontSize: 14,
@@ -152,7 +145,13 @@ class _individualpageState extends State<individualpage> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  if (widget.product.uploader != null)
+                    Column(
+                      children: [
+                        Text("UPloader info available"),
+                      ],
+                    ),
                 ], //children
               ),
             )

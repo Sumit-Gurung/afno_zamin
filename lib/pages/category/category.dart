@@ -1,7 +1,5 @@
 import 'package:afnozamin/pages/Home_screen.dart';
-import 'package:afnozamin/pages/category/commercial.dart';
-import 'package:afnozamin/pages/category/house.dart';
-import 'package:afnozamin/pages/category/land.dart';
+import 'package:afnozamin/pages/category/category_list.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +18,11 @@ class _CategoryState extends State<Category> {
         children: [
           CategoryProduct(
             press: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HouseScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CategoryListScreen(categoryName: "house")));
             },
             //image location
             image: 'assets/images/house.png',
@@ -32,8 +33,11 @@ class _CategoryState extends State<Category> {
           ),
           CategoryProduct(
             press: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LandScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CategoryListScreen(categoryName: "land")));
             },
             //image location
             image: 'assets/images/land.png',
@@ -44,8 +48,11 @@ class _CategoryState extends State<Category> {
           ),
           CategoryProduct(
             press: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CommercialScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CategoryListScreen(categoryName: "commercial")));
             },
             //image location
             image: 'assets/images/commercial.png',

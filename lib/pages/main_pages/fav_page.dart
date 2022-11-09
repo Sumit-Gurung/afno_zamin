@@ -1,9 +1,12 @@
+import 'package:afnozamin/controllers/favorites_controller.dart';
+import 'package:afnozamin/controllers/products_controller.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
-import 'package:afnozamin/pages/individualPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../BottomBar.dart';
+import '../category/property_tile.dart';
 
 class FavScreen extends StatefulWidget {
   @override
@@ -13,73 +16,23 @@ class FavScreen extends StatefulWidget {
 class _FavScreenState extends State<FavScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorite properties'),
-      ),
-      body: ListView(
-        children: productList.map((e) => PropertyTile(e)).toList(),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        selectedMenu: MenuState.favorite,
-      ),
-    );
-  }
-}
-
-class PropertyTile extends StatelessWidget {
-  Map<String, dynamic> properties;
-
-  PropertyTile(
-    this.properties, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (() {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => individualpage()));
-      }),
-      child: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: primarycolor,
-          ),
+    return Consumer2<ProductController, FavoriteController>(
+        builder: (context, productConroller, favController, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Favorite properties'),
         ),
-        child: Row(children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(properties['image']),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Name: ${properties['name']}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text("Price: ${properties['price']}"),
-              Text("Description: ${properties['disc']}"),
-            ],
-          ),
-        ]),
-      ),
-    );
+        body: ListView(
+          children: productConroller.all
+              .where((element) => favController.isFav(element))
+              .toList()
+              .map((e) => PropertyTile(product: e))
+              .toList(),
+        ),
+        bottomNavigationBar: BottomNavBar(
+          selectedMenu: MenuState.favorite,
+        ),
+      );
+    });
   }
 }

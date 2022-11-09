@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:afnozamin/pages/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class Notificaionview extends StatelessWidget {
   const Notificaionview({Key? key}) : super(key: key);
@@ -15,18 +21,53 @@ class Notificaionview extends StatelessWidget {
   }
 }
 
-Widget Listview() {
-  return ListView.separated(
-      itemBuilder: (context, index) {
-        return ListviewItem(index);
-      },
-      separatorBuilder: (context, index) {
-        return Divider(height: 1);
-      },
-      itemCount: 3);
+Future<List> getNotifications() async {
+  var loggedInUserDetails =
+      await FlutterSecureStorage().read(key: "ZAMIN_USER");
+  if (loggedInUserDetails == null) {
+    throw Exception("Login needed");
+  }
+
+  var parsed = jsonDecode(loggedInUserDetails);
+  var id = parsed['_id'];
+  if (id == null) throw Exception("Unable to find user id");
+
+  var resp = await http.get(Uri.parse("$kApiURL/products/notifications/$id"));
+
+  if (resp.statusCode != 200) throw Exception("Invalid Response");
+
+  return jsonDecode(resp.body);
 }
 
-Widget ListviewItem(int index) {
+Widget Listview() {
+  return FutureBuilder(
+    future: getNotifications(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        var data = snapshot.data as List;
+        if (data.isEmpty) {
+          return Center(
+            child: Text("No Notifications."),
+          );
+        }
+        return ListView.separated(
+            itemBuilder: (context, index) {
+              return ListviewItem(data[index] as Map<String, dynamic>);
+            },
+            separatorBuilder: (context, index) {
+              return Divider(height: 1);
+            },
+            itemCount: data.length);
+      } else if (snapshot.hasError) {
+        return Center(child: Text("Error: ${snapshot.error}"));
+      }
+
+      return Center(child: CupertinoActivityIndicator());
+    },
+  );
+}
+
+Widget ListviewItem(Map<String, dynamic> itemDetails) {
   return Container(
       margin: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       child: Row(
@@ -39,9 +80,9 @@ Widget ListviewItem(int index) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  message(index),
+                  message(itemDetails),
                   timeanddate(
-                    index,
+                    itemDetails,
                   )
                 ],
               ),
@@ -68,14 +109,15 @@ Widget PrefixIcon() {
   );
 }
 
-Widget message(int index) {
+Widget message(Map<String, dynamic> itemDetails) {
   double textsize = 14;
+
   return Container(
     child: RichText(
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
-          text: 'Hey! DEF ',
+          text: itemDetails['user']['username'],
           style: TextStyle(
             fontSize: textsize,
             color: primarycolor,
@@ -83,7 +125,7 @@ Widget message(int index) {
           ),
           children: [
             TextSpan(
-                text: 'ABC liked your property',
+                text: 'l iked your listing: ${itemDetails['product']['title']}',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                 ))
@@ -92,18 +134,21 @@ Widget message(int index) {
   );
 }
 
-Widget timeanddate(int index) {
+Widget timeanddate(Map<String, dynamic> itemDetails) {
   return Container(
     margin: EdgeInsets.only(top: 5),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '23-09-2001',
+          DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+              .format(DateTime.parse(itemDetails['createdAt'])),
           style: TextStyle(fontSize: 10),
         ),
         Text(
-          '10:25',
+          DateFormat(DateFormat.HOUR_MINUTE).format(DateTime.parse(
+            itemDetails['createdAt'],
+          ).toLocal()),
           style: TextStyle(fontSize: 10),
         )
       ],

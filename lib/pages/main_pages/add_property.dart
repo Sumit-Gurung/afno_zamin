@@ -1,14 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:afnozamin/controllers/products_controller.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:http/http.dart' as http;
 
 import 'package:image_picker/image_picker.dart';
-import '../../utils/routes.dart';
+import 'package:provider/provider.dart';
+import '../../model/product.dart';
+
 import '../BottomBar.dart';
 
 class AddScreen extends StatefulWidget {
@@ -23,7 +27,7 @@ class _AddScreenState extends State<AddScreen> {
   List<String> purposes = ['Rent', "Sell"];
   late String _selectedPurpose = purposes[0];
 
-  List<String> propertyType = ['Land', 'Building', "Commercial"];
+  List<String> propertyType = ['Land', 'House', "Commercial"];
   late String _selectedProperty = propertyType[0];
 
   final ImagePicker _picker = ImagePicker();
@@ -50,32 +54,56 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   void addProduct() async {
-    // var data = {
-
-    //     'image' : imagepath
-
-    //     };
-    //  var bodyPart = json.encode(data);
     try {
-      var request = http.MultipartRequest(
-          "POST", Uri.parse("http://192.168.1.92:8000/addProduct"));
+      var loggedInUserDetails =
+          await FlutterSecureStorage().read(key: "ZAMIN_USER");
+      if (loggedInUserDetails == null) {
+        throw Exception("Login needed");
+      }
+
+      var parsed = jsonDecode(loggedInUserDetails);
+      var id = parsed['_id'];
+      if (id == null) throw Exception("Unable to find user id");
+
+      var request =
+          http.MultipartRequest("POST", Uri.parse("$kApiURL/addProduct"));
       request.fields['title'] = titleController.text;
       request.fields['price'] = priceController.text;
+      request.fields['description'] = descriptionController.text;
       request.fields['area'] = areaController.text;
       request.fields['location'] = locationController.text;
       request.fields['purpose'] = _selectedPurpose;
       request.fields['category'] = _selectedProperty;
-      request.files.add(await http.MultipartFile.fromPath('image', imagepath!));
+      request.fields['user'] = id!;
+      if (imagepath != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('image', imagepath!));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Please choose an image first.')));
+        return;
+      }
+
+      print(request.fields);
+      print(request.files);
 
       request.send().then((response) {
         if (response.statusCode == 200) {
-          print(' successful upload ');
+          response.stream.bytesToString().then((value) {
+            Provider.of<ProductController>(context, listen: false)
+                .addNew(Product.fromJson(jsonDecode(value)));
+          });
+
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('uploaded')));
+          Navigator.of(context).pop();
           // ignore: use_build_context_sync
           //hronously, unnecessary_new
           // Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
 
         } else {
-          print('failed to upload');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('failed to upload')));
         }
       });
     } catch (e) {
