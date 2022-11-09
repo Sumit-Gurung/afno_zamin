@@ -30,16 +30,17 @@ class _LoginPageState extends State<LoginPage> {
       'password': passwordController.text
     };
     var bodyPart = json.encode(data);
-
-    // message
     try {
-      Response response = await http.post(
-          Uri.parse("http://192.168.1.93:8000/login"),
-          body: bodyPart,
-          headers: {"Content-Type": "application/json"});
-      print(response);
+      Response response = await http.post(Uri.parse("$kApiURL/login"),
+          body: bodyPart, headers: {"Content-Type": "application/json"});
+
       if (response.statusCode == 200 &&
           jsonDecode(response.body.toString()) != null) {
+        FlutterSecureStorage().write(
+          key: "ZAMIN_USER",
+          value: response.body.toString(),
+        );
+
         print('Login successfully');
         print(jsonDecode(response.body.toString()));
 

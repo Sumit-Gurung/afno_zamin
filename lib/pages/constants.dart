@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 const primarycolor = Colors.green;
 
+const kApiURL = "http://192.168.1.11:8000";
+
 //for background color
 
 const bgcolor = Color(0xffe9eef2);

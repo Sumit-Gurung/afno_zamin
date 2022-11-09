@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:afnozamin/model/user.dart';
 import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/notificationview.dart';
 import 'package:flutter/material.dart';
@@ -11,17 +14,20 @@ class Myinfo extends StatefulWidget {
 }
 
 class _MyinfoState extends State<Myinfo> {
-  dynamic user;
+  User? user;
 
   @override
   void initState() {
     super.initState();
+    getUser();
   }
 
-  getUserData() async {
-    var test = await FlutterSecureStorage().read(key: "ZAMIN_USER");
-
-    print(test);
+  getUser() async {
+    var test = await const FlutterSecureStorage().read(key: "ZAMIN_USER");
+    setState(() {
+      user = User.fromJson((jsonDecode(test!)));
+    });
+    print(user);
   }
 
   @override
@@ -47,9 +53,9 @@ class _MyinfoState extends State<Myinfo> {
             SizedBox(
               height: 16,
             ),
-            Listprofile(Icons.person, 'UserName', user["username"] ?? ''),
-            Listprofile(Icons.email, 'Email', user["email"] ?? ''),
-            Listprofile(Icons.phone, 'Phone', user["phoneNumber"] ?? ''),
+            Listprofile(Icons.person, 'UserName', user!.username),
+            Listprofile(Icons.email, 'Email', user!.email),
+            Listprofile(Icons.phone, 'Phone', user!.phoneNumber),
           ],
         ),
       ),

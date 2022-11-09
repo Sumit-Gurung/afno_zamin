@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:afnozamin/pages/drawer.dart';
 import 'package:afnozamin/pages/ename.dart';
 import 'package:afnozamin/pages/main_pages/subprofile/myinformation.dart';
 import 'package:afnozamin/pages/main_pages/subprofile/settings.dart';
 import 'package:afnozamin/pages/notificationview.dart';
 import 'package:afnozamin/pages/product/product_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
+import '../../model/user.dart';
 import '../BottomBar.dart';
 import '../Custom_appbar.dart';
 import '../login_page.dart';
@@ -20,6 +24,22 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  getUser() async {
+    var test = await const FlutterSecureStorage().read(key: "ZAMIN_USER");
+    setState(() {
+      user = User.fromJson((jsonDecode(test!)));
+    });
+    print(user);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

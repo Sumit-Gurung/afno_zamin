@@ -33,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
     var bodyPart = json.encode(data);
     try {
       Response response = await http.post(
-          Uri.parse("http://192.168.1.93:8000/signup"),
+          Uri.parse("http://192.168.1.71:8000/signup"),
           body: bodyPart,
           headers: {"Content-Type": "application/json"});
 
@@ -44,7 +44,7 @@ class _SignupPageState extends State<SignupPage> {
         Navigator.push(
             context, new MaterialPageRoute(builder: (context) => LoginPage()));
       } else {
-        print('fail to login..');
+        print('failed to signup');
       }
     } catch (e) {
       print(e.toString());
