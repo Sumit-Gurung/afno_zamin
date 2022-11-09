@@ -36,14 +36,14 @@ TextEditingController passwordController = TextEditingController();
     try{
       
       Response response = await http.post(
-        Uri.parse("http://192.168.1.68:8000/signup"),
+        Uri.parse("http://192.168.1.92:8000/signup"),
         body: bodyPart,
         headers: {
           "Content-Type":"application/json"
         }
       );
 
-      if(response.statusCode == 200&& jsonDecode(response.body.toString())!=null){
+      if(response.statusCode == 200 && jsonDecode(response.body.toString())!=null){
        print('Registration successful ');
      // ignore: use_build_context_synchronously, unnecessary_new
      Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage()));
