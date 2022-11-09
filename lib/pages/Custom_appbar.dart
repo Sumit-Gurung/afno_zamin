@@ -2,6 +2,7 @@ import 'package:afnozamin/pages/notificationview.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
+import 'main_pages/searchfilter.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -40,22 +41,42 @@ class CustomAppBar extends StatelessWidget {
           ],
         ),
         Container(
-          child: Builder(
-            builder: (context) => IconButton(
-              icon: Badge(
-                  badgeContent: Text('$count'),
-                  badgeColor: primarycolor,
-                  padding: EdgeInsets.all(3.0),
-                  position: BadgePosition.topStart(),
-                  animationType: BadgeAnimationType.slide,
-                  child: Icon(
-                    Icons.notifications,
-                  )),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Notificaionview()));
-              },
-            ),
+          child: Row(
+            children: [
+              Builder(
+                builder: (context) => IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Searchfilter()));
+                  },
+                ),
+              ),
+              Builder(
+                builder: (context) => IconButton(
+                  icon: Badge(
+                      badgeContent: Text('$count'),
+                      badgeColor: primarycolor,
+                      padding: EdgeInsets.all(3.0),
+                      position: BadgePosition.topStart(),
+                      animationType: BadgeAnimationType.slide,
+                      child: Icon(
+                        Icons.notifications,
+                      )),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Notificaionview()));
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ],

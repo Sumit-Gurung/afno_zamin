@@ -44,23 +44,6 @@ class _homebodyState extends State<homebody> {
               //to create slider
               //we create asset foler and import the required images
               // giving image folder path in pubspec
-              Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Popular Now',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Roboto-black',
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               ProductSlider(),
               //defininig size for categories
               // SizedBox(
@@ -104,7 +87,7 @@ class _homebodyState extends State<homebody> {
                   ],
                 ),
               ),
-              Container(height: 272, child: RecentProducts()),
+              Container(height: 330, child: RecentProducts()),
             ],
           ),
         ),
