@@ -180,7 +180,7 @@ class _AddScreenState extends State<AddScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavBar(
-        selectedMenu: MenuState.addpropery,
+        selectedMenu: MenuState.search,
       ),
     );
 

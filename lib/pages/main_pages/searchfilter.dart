@@ -3,113 +3,86 @@ import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/ename.dart';
 import 'package:afnozamin/pages/individualPage.dart';
 import 'package:flutter/material.dart';
-
 import '../BottomBar.dart';
 
-class PropScreen extends StatefulWidget {
+class Searchfilter extends StatefulWidget {
   @override
-  State<PropScreen> createState() => _PropScreenState();
+  State<Searchfilter> createState() => _SearchfilterState();
 }
 
-class _PropScreenState extends State<PropScreen> {
-  String dropdownvalue = 'Sort By';
-  bool isDescending = false;
-
+class _SearchfilterState extends State<Searchfilter> {
   // List of items in our dropdown menu
-  var items = [
-    'Sort By',
-    'Default',
-    'Price (Ascending)',
-    'Price (Descending)',
-  ];
+
   List<Map<String, String>> _foundusers = [];
-  List<Map<String, String>> sorteddata = [];
   @override
   void initState() {
     _foundusers = productList;
     super.initState();
   }
 
-  List<Map<String, String>> results = [];
-  void _runFilter() {
-    results = productList
-      ..sort((item1, item2) => item1['price']!.compareTo(item2['price']!));
+  void _runFilter(String enteredKeyword) {
+    List<Map<String, String>> results = [];
+    if (enteredKeyword.isEmpty) {
+      // if the search field is empty or only contains white-space, we'll display all users
+      results = productList;
+    } else {
+      results = productList
+          .where((user) => user["name"]!
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+      // we use the toLowerCase() method to make it case-insensitive
+    }
     setState(() {
       _foundusers = results;
-    });
-  }
-
-  void _runreverse() {
-    results = productList
-      ..sort((item1, item2) => item1['price']!.compareTo(item2['price']!));
-    setState(() {
-      _foundusers = results.reversed.toList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Properties list'),
-        ),
-        body: Column(children: [
-          Container(
-            margin: EdgeInsets.all(8.0),
-            padding: EdgeInsets.all(6.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: primarycolor,
-              ),
-            ),
-            height: 50.0,
-            width: 250.0,
-            child: DropdownButton(
-              // Initial Value
-              isExpanded: true,
-              value: dropdownvalue,
-              style: TextStyle(
-                color: primarycolor,
-                fontSize: 16,
-              ),
-
-              // Down Arrow Icon
-              icon: const Icon(Icons.keyboard_arrow_down),
-
-              // Array list of items
-              items: items.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              // After selecting the desired option,it will
-              // change button value to selected value
-              onChanged: (String? newValue) {
-                setState(() {
-                  if (dropdownvalue == "Price (Ascending)") {
-                    _runreverse();
-                  }
-                  if (dropdownvalue == "Price (Descending)") {
-                    _runFilter();
-                  }
-
-                  dropdownvalue = newValue!;
-                });
-              },
-            ),
-          ),
+      body: SafeArea(
+        child: Column(children: [
           SizedBox(
-            height: 20,
+            height: 10,
+          ),
+          Container(
+            padding: EdgeInsets.all(4.0),
+            margin: EdgeInsets.only(left: 14, right: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextField(
+              onChanged: (value) => _runFilter(value),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.grey.shade300,
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+                //remove bar
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+                hintText: 'Search',
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
           ),
           Expanded(
             child: ListView(
               children: _foundusers.map((e) => PropertyTile(e)).toList(),
             ),
           )
-        ]));
+        ]),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        selectedMenu: MenuState.search,
+      ),
+    );
   }
 }
 

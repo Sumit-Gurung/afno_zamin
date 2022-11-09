@@ -16,33 +16,43 @@ class SearchBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        //shadow color
-                        color: Colors.black38,
-                        blurRadius: 4)
-                  ],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 14),
-                    //remove bar
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                )),
+          Text(
+            'Popular Now',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Roboto-black',
+              color: Colors.black87,
+            ),
           ),
+          // Expanded(
+          //   child: Container(
+          //       decoration: BoxDecoration(
+          //         color: Colors.white,
+          //         borderRadius: BorderRadius.circular(20),
+          //         boxShadow: [
+          //           BoxShadow(
+          //               //shadow color
+          //               color: Colors.black38,
+          //               blurRadius: 4)
+          //         ],
+          //       ),
+          //       child: TextField(
+          //         decoration: InputDecoration(
+          //           contentPadding: EdgeInsets.symmetric(vertical: 14),
+          //           //remove bar
+          //           enabledBorder: OutlineInputBorder(
+          //             borderSide: BorderSide.none,
+          //           ),
+          //           focusedBorder: OutlineInputBorder(
+          //             borderSide: BorderSide.none,
+          //           ),
+          //           prefixIcon: Icon(Icons.search),
+          //         ),
+          //       )),
+          // ),
           //sorting botton
           SizedBox(
             width: 10,

@@ -4,8 +4,10 @@ import 'package:afnozamin/pages/main_pages/add_property.dart';
 import 'package:afnozamin/pages/main_pages/fav_page.dart';
 //import 'package:afnozamin/pages/main_pages/search_page.dart';
 import 'package:afnozamin/pages/main_pages/user_profile.dart';
+import 'package:afnozamin/pages/main_pages/searchfilter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'Home_screen.dart';
 import 'main_pages/search_page.dart';
@@ -21,7 +23,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color inactiveColor = Colors.grey;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 14),
+      padding: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -72,7 +74,12 @@ class BottomNavBar extends StatelessWidget {
                 size: 35,
               ),
               onPressed: () {
-                showSearch(context: context, delegate: DataSearch());
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        duration: Duration(microseconds: 200),
+                        type: PageTransitionType.rightToLeftWithFade,
+                        child: Searchfilter()));
               },
             ),
             IconButton(
