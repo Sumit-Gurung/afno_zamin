@@ -49,7 +49,17 @@ class _IndividualPageState extends State<IndividualPage> {
             SizedBox(
               height: 10,
             ),
-            ProductSlider(),
+            Container(
+              margin: EdgeInsets.only(left: 10, right: 10),
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(widget.product.image),
+                ),
+              ),
+            ),
             SizedBox(
               height: 15,
             ),
@@ -149,7 +159,29 @@ class _IndividualPageState extends State<IndividualPage> {
                   if (widget.product.uploader != null)
                     Column(
                       children: [
-                        Text("UPloader info available"),
+                        Text(
+                          'Owner details',
+                          style: TextStyle(
+                            color: primarycolor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Uploaded by : ${widget.product.uploader!.username}'),
+                              Text('Email : ${widget.product.uploader!.email}'),
+                              Text(
+                                  'Phone No : ${widget.product.uploader!.phoneNumber}'),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                 ], //children

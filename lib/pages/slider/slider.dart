@@ -1,6 +1,10 @@
+import 'package:afnozamin/model/product.dart';
 import 'package:afnozamin/pages/constants.dart';
+import 'package:afnozamin/pages/main_pages/fav_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
+import '../IndividualPage.dart';
 
 class ProductSlider extends StatefulWidget {
   @override
@@ -19,24 +23,27 @@ class _ProductSliderState extends State<ProductSlider> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 170,
-          child: CarouselSlider(
-            items: imgList
-                .map((item) => Container(
-                      child: Center(
-                        child: Image.network(
-                          item,
-                          fit: BoxFit.cover,
-                          width: 1000,
+        child: GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 170,
+            child: CarouselSlider(
+              items: imgList
+                  .map((item) => Container(
+                        child: Center(
+                          child: Image.network(
+                            item,
+                            fit: BoxFit.cover,
+                            width: 1000,
+                          ),
                         ),
-                      ),
-                    ))
-                .toList(),
-            options: CarouselOptions(
-              autoPlay: true,
-              aspectRatio: 2.0,
-              enlargeCenterPage: true,
+                      ))
+                  .toList(),
+              options: CarouselOptions(
+                autoPlay: true,
+                aspectRatio: 2.0,
+                enlargeCenterPage: true,
+              ),
             ),
           ),
         ));
