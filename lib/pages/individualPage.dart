@@ -109,14 +109,25 @@ class _IndividualPageState extends State<IndividualPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      DetailCard(
-                          icon: Icons.location_city,
-                          text: widget.product.location),
-                      DetailCard(
-                          icon: Icons.category, text: widget.product.purpose),
-                      DetailCard(
-                          icon: Icons.area_chart,
-                          text: "${widget.product.area} sq feet"),
+                      Expanded(
+                        child: SizedBox(
+                          height: 140,
+                          child: DetailCard(
+                              icon: Icons.location_city,
+                              text: widget.product.location),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 140,
+                        child: DetailCard(
+                            icon: Icons.category, text: widget.product.purpose),
+                      ),
+                      SizedBox(
+                        height: 140,
+                        child: DetailCard(
+                            icon: Icons.area_chart,
+                            text: "${widget.product.area} sq feet"),
+                      ),
                     ],
                   ),
                   SizedBox(
