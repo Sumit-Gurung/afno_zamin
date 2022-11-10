@@ -25,18 +25,19 @@ class BottomNavBar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFFDADADA),
-              offset: Offset(0, -15),
-              blurRadius: 20,
-            ),
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Color(0xFFDADADA),
+        //     offset: Offset(0, -15),
+        //     blurRadius: 20,
+        //   ),
+        // ],
+      ),
       child: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -64,30 +64,30 @@ class drawer extends StatelessWidget {
           const Divider(
             color: primarycolor,
           ),
-          ListTile(
-              leading: Icon(Icons.login_rounded),
-              title: const Text('Login-IN'),
-              iconColor: primarycolor,
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              }),
-          ListTile(
-            leading: Icon(Icons.laptop_chromebook_rounded),
-            title: const Text('Sign-Up'),
-            iconColor: primarycolor,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupPage()));
-            },
-          ),
+          // ListTile(
+          //     leading: Icon(Icons.login_rounded),
+          //     title: const Text('Login-IN'),
+          //     iconColor: primarycolor,
+          //     onTap: () {
+          //       Navigator.push(context,
+          //           MaterialPageRoute(builder: (context) => LoginPage()));
+          //     }),
+          // ListTile(
+          //   leading: Icon(Icons.laptop_chromebook_rounded),
+          //   title: const Text('Sign-Up'),
+          //   iconColor: primarycolor,
+          //   onTap: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => SignupPage()));
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.logout),
             title: const Text('Log-Out'),
             iconColor: primarycolor,
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupPage()));
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
           ),
         ],

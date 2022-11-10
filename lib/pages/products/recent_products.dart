@@ -15,14 +15,19 @@ class RecentProducts extends StatelessWidget {
 
     return Consumer<ProductController>(
         builder: (context, productController, child) {
-      return GridView.builder(
-          itemCount: productController.all.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.8),
-          itemBuilder: (BuildContext context, int index) {
-            //assign values to variables
-            return RecentSingleProducts(product: productController.all[index]);
-          });
+      return Container(
+        // color: Colors.red,
+        padding: const EdgeInsets.only(bottom: 32.0),
+        child: GridView.builder(
+            itemCount: productController.all.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, childAspectRatio: 0.8),
+            itemBuilder: (BuildContext context, int index) {
+              //assign values to variables
+              return RecentSingleProducts(
+                  product: productController.all[index]);
+            }),
+      );
     });
   }
 }
@@ -68,7 +73,7 @@ class _RecentSingleProductsState extends State<RecentSingleProducts> {
                   borderRadius: BorderRadius.circular(30),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/Afnoz.png"),
+                    image: NetworkImage(widget.product.image),
                   ),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:afnozamin/pages/constants.dart';
+import 'package:afnozamin/pages/user_notifier_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,7 +17,7 @@ class Notificaionview extends StatelessWidget {
       appBar: AppBar(
         title: Text('Notifications'),
       ),
-      body: Listview(),
+      body: Listview(context),
     );
   }
 }
@@ -39,7 +40,7 @@ Future<List> getNotifications() async {
   return jsonDecode(resp.body);
 }
 
-Widget Listview() {
+Widget Listview(BuildContext context) {
   return FutureBuilder(
     future: getNotifications(),
     builder: (context, snapshot) {
@@ -52,7 +53,7 @@ Widget Listview() {
         }
         return ListView.separated(
             itemBuilder: (context, index) {
-              return ListviewItem(data[index] as Map<String, dynamic>);
+              return ListviewItem(context, data[index] as Map<String, dynamic>);
             },
             separatorBuilder: (context, index) {
               return Divider(height: 1);
@@ -67,7 +68,7 @@ Widget Listview() {
   );
 }
 
-Widget ListviewItem(Map<String, dynamic> itemDetails) {
+Widget ListviewItem(BuildContext context, Map<String, dynamic> itemDetails) {
   return Container(
       margin: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       child: Row(
@@ -80,7 +81,7 @@ Widget ListviewItem(Map<String, dynamic> itemDetails) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  message(itemDetails),
+                  message(context, itemDetails),
                   timeanddate(
                     itemDetails,
                   )
@@ -109,10 +110,20 @@ Widget PrefixIcon() {
   );
 }
 
-Widget message(Map<String, dynamic> itemDetails) {
-  double textsize = 14;
+Widget message(BuildContext context, Map<String, dynamic> itemDetails) {
+  double textsize = 17;
 
-  return Container(
+  return GestureDetector(
+    onTap: () {
+      // print(itemDetails['user']['_id']);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => UserNotifierInfo(
+                  userId: itemDetails['user']['_id'],
+                )),
+      );
+    },
     child: RichText(
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
@@ -125,7 +136,7 @@ Widget message(Map<String, dynamic> itemDetails) {
           ),
           children: [
             TextSpan(
-                text: 'l iked your listing: ${itemDetails['product']['title']}',
+                text: ' liked your listing: ${itemDetails['product']['title']}',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                 ))
@@ -143,13 +154,13 @@ Widget timeanddate(Map<String, dynamic> itemDetails) {
         Text(
           DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
               .format(DateTime.parse(itemDetails['createdAt'])),
-          style: TextStyle(fontSize: 10),
+          style: TextStyle(fontSize: 13),
         ),
         Text(
           DateFormat(DateFormat.HOUR_MINUTE).format(DateTime.parse(
             itemDetails['createdAt'],
           ).toLocal()),
-          style: TextStyle(fontSize: 10),
+          style: TextStyle(fontSize: 14),
         )
       ],
     ),

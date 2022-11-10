@@ -2,9 +2,6 @@ import 'package:afnozamin/pages/constants.dart';
 import 'package:afnozamin/pages/notificationview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class Settingspage extends StatefulWidget {
   const Settingspage({Key? key}) : super(key: key);

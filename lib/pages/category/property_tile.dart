@@ -28,34 +28,37 @@ class PropertyTile extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Row(children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/house1.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Name: ${product.title}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(children: [
+            Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/house1.jpg'),
+                  fit: BoxFit.cover,
                 ),
               ),
-              Text("Price: ${product.price}"),
-              Text("Description: ${product.description}"),
-            ],
-          ),
-        ]),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Name: ${product.title}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text("Price: ${product.price}"),
+                Text("Description: ${product.description}"),
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }
