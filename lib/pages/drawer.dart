@@ -20,8 +20,8 @@ class drawer extends StatelessWidget {
         children: [
           Center(
             child: UserAccountsDrawerHeader(
-              accountName: Text("Afno Zamin"),
-              accountEmail: Text("afnozamin@gmail.com"),
+              accountName: Text(""),
+              accountEmail: Text(""),
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
                   child: Image.asset(

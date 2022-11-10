@@ -52,7 +52,7 @@ class PropertyTile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text("Price: ${product.price}"),
+                Text("Price: Rs.${product.price}"),
                 Text("Description: ${product.description}"),
               ],
             ),

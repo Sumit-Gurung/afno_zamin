@@ -119,6 +119,7 @@ class _AddScreenState extends State<AddScreen> {
           title: Text('Add  property'),
           // backgroundColor: Colors.white,
         ),
+        resizeToAvoidBottomInset: true,
         body: ListView(
           children: [
             Container(
@@ -159,7 +160,7 @@ class _AddScreenState extends State<AddScreen> {
                       TextFormField(
                         controller: priceController,
                         decoration: InputDecoration(
-                          hintText: "Enter Price",
+                          hintText: "Enter Price in Rs",
                           labelText: "Price",
                         ),
                         validator: (value) {
@@ -172,7 +173,7 @@ class _AddScreenState extends State<AddScreen> {
                       TextFormField(
                         controller: areaController,
                         decoration: InputDecoration(
-                          hintText: "Enter Area",
+                          hintText: "Enter Area in sq feet",
                           labelText: "Area",
                         ),
                         validator: (value) {

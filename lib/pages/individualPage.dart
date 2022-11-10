@@ -116,7 +116,7 @@ class _IndividualPageState extends State<IndividualPage> {
                           icon: Icons.category, text: widget.product.purpose),
                       DetailCard(
                           icon: Icons.area_chart,
-                          text: "${widget.product.area}"),
+                          text: "${widget.product.area} sq feet"),
                     ],
                   ),
                   SizedBox(
