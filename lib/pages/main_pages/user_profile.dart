@@ -25,7 +25,6 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   User? user;
-
   @override
   void initState() {
     super.initState();
@@ -43,77 +42,68 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(),
-      bottomNavigationBar: BottomNavBar(
-        selectedMenu: MenuState.userprofile,
-      ),
-    );
-  }
-}
-
-class Body extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 20),
-          child: Container(
-            child: Column(
-              children: [
-                CustomAppBar(),
-                ProfilePic(),
-                SizedBox(height: 20),
-                Container(
-                  child: Column(
-                    children: [
-                      Text("Firstname Lastname",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
-                      Text("emailaddress@xyz.com",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
-                    ],
+          child: Column(
+            children: [
+              CustomAppBar(),
+              ProfilePic(),
+              SizedBox(height: 20),
+              Column(
+                children: [
+                  Text(user!.username,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                  Text(
+                    user!.email,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                ProfileMenu(
-                  text: "My Property",
-                  icon: "assets/images/property.png",
-                  press: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PropScreen())),
-                ),
-                ProfileMenu(
-                  text: "My information",
-                  icon: "assets/images/property.png",
-                  press: () => Navigator.push(
-                      context,
-                      PageTransition(
-                          type: PageTransitionType.fade, child: Myinfo())),
-                ),
-                ProfileMenu(
-                  text: "Settings",
-                  icon: "assets/images/settings.png",
-                  press: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Settingspage())),
-                ),
-                ProfileMenu(
-                    text: "Log Out",
-                    icon: "assets/images/logout.png",
-                    //   press: () => Navigator.push(context,
-                    //       MaterialPageRoute(builder: (context) => LoginPage())),
-                    // )
-                    press: () => Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return LoginPage();
-                        }), (r) {
-                          return false;
-                        })),
-              ],
-            ),
+                ],
+              ),
+              ProfileMenu(
+                text: "My Property",
+                icon: "assets/images/property.png",
+                press: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PropScreen())),
+              ),
+              ProfileMenu(
+                text: "My information",
+                icon: "assets/images/property.png",
+                press: () => Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade, child: Myinfo())),
+              ),
+              ProfileMenu(
+                text: "Settings",
+                icon: "assets/images/settings.png",
+                press: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Settingspage())),
+              ),
+              ProfileMenu(
+                  text: "Log Out",
+                  icon: "assets/images/logout.png",
+                  //   press: () => Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => LoginPage())),
+                  // )
+                  press: () => Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return LoginPage();
+                      }), (r) {
+                        return false;
+                      })),
+            ],
           ),
         ),
       ),
       drawer: drawer(),
+      bottomNavigationBar: BottomNavBar(
+        selectedMenu: MenuState.userprofile,
+      ),
     );
   }
 }

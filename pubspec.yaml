@@ -36,6 +36,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   fluttertoast: ^8.1.1
   
+  firebase_auth: ^4.1.1
+  
 
   json_annotation: ^4.7.0
 
