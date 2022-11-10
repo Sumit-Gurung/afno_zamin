@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../model/product.dart';
 import '../constants.dart';
 import '../individualPage.dart';
@@ -36,7 +35,7 @@ class PropertyTile extends StatelessWidget {
               width: 80,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/house1.jpg'),
+                  image: NetworkImage(product.image),
                   fit: BoxFit.cover,
                 ),
               ),
